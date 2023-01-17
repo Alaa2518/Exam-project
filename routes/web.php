@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ExamController;
+use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,3 +31,20 @@ Route::delete('exam/delete/{id}', [ExamController::class, 'destroy']); // delete
 
 Route::get('exam/edit/{id}', [ExamController::class, 'edit']); // show UI to update exam data
 Route::put('exam/update/{id}', [ExamController::class, 'update']); // add updated axam in to database
+
+
+// Questions
+
+Route::get('question/show/{id}', [QuestionController::class, 'show']);
+
+Route::get('question/index', [QuestionController::class, 'index'])->name('questions');
+
+Route::delete('question/delete/{id}', [QuestionController::class, 'destroy']);
+
+
+Route::get('question/create/{id}', [QuestionController::class, 'create'])->name('addquestion');
+Route::post('question/store', [QuestionController::class, 'store']);
+
+
+Route::get('question/edit/{id}', [QuestionController::class, 'edit']);
+Route::put('question/update/{id}', [QuestionController::class, 'update']);

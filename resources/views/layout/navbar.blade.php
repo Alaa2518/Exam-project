@@ -6,10 +6,13 @@
     <ul class="navbar-nav">
 
       <li class="nav-item">
-        <a class="nav-link" href="{{route("exams")}}">Exam list</a>
+        <a class="nav-link" href="{{route("exams")}}">Exams</a>
       </li>
       <li class="nav-item">
         <a  class="nav-link" href="{{route("addExam")}}">Add Exam</a>
+      </li>
+      <li class="nav-item">
+        <a  class="nav-link" href="{{route("questions")}}">Questions</a>
       </li>
     </ul>
   </div>

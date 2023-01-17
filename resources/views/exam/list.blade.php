@@ -17,10 +17,14 @@
         <h1>Exam Number {{$exam->id}}</h1>
         <p class="lead">{{$exam['title']}}
             <a href="{{url('exam/show/'.$exam->id)}}">See More</a>
+
         </p>
+
         <div class="row float-right">
+
+
         <a class="btn btn-primary col-4" href="{{url('exam/edit/'.$exam->id)}}" role="button" >Edit</a>
-            <form action="{{url('exam/delete/'.$exam->id)}}" method="POST" class="col-4">
+            <form action="{{url('exam/delete/'.$exam->id)}}" method="POST" class="col-2">
             @csrf
             @method('delete')
                 <button class="btn btn-danger " role="button" type="sbmit" >Delete</button>
