@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Exam;
+use App\Models\Option;
 use App\Models\Question;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class QuestionController extends Controller
 {
@@ -42,8 +45,48 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
         //
-        Question::Create($request->all());
 
+        Question::Create($request->all());
+        $id = Question::all()->last()->id ;
+
+
+        if ($request->question_type === 'trueOrFalse'){
+
+                DB::table('options')->insert([
+                    'quetion_id' => $id,
+                    'isTrue' => 1,
+                    'option' => $request->trueOrFalse,
+                    'created_at' => Carbon::now()->toDateTimeString(),
+                    'updated_At' => Carbon::now()->toDateTimeString(),
+                ]);
+
+        } else if ($request->question_type === 'MCQ') {
+
+            for ($i =1 ; $i<=(int)$request->MCQ_number;$i++){
+                if (property_exists($request, $request->true_Option_ . $i))
+                        {
+                             DB::table('options')->insert([
+                    'option' => $request->option_.$i,
+                    'isTrue' => 1,
+                    'quetion_id' => $id,
+                    'created_at' => Carbon::now()->toDateTimeString(),
+                    'updated_At' => Carbon::now()->toDateTimeString(),
+                ]);
+                        }
+                else
+                    {
+                    DB::table('options')->insert([
+                        'option' => $request->option_ . $i,
+                        'isTrue' => 0,
+                        'quetion_id' => $id,
+                        'created_at' => Carbon::now()->toDateTimeString(),
+                        'updated_At' => Carbon::now()->toDateTimeString(),
+                    ]);
+                    }
+
+            }
+            return response($request);
+        }
         return redirect()->route('questions');
 
     }

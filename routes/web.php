@@ -35,16 +35,15 @@ Route::put('exam/update/{id}', [ExamController::class, 'update']); // add update
 
 // Questions
 
-Route::get('question/show/{id}', [QuestionController::class, 'show']);
+Route::get('question/show/{id}', [QuestionController::class, 'show']); // get one question
 
-Route::get('question/index', [QuestionController::class, 'index'])->name('questions');
+Route::get('question/index', [QuestionController::class, 'index'])->name('questions'); // get all question in database
 
-Route::delete('question/delete/{id}', [QuestionController::class, 'destroy']);
-
-
-Route::get('question/create/{id}', [QuestionController::class, 'create'])->name('addquestion');
-Route::post('question/store', [QuestionController::class, 'store']);
+Route::delete('question/delete/{id}', [QuestionController::class, 'destroy']); // delete quetion
 
 
-Route::get('question/edit/{id}', [QuestionController::class, 'edit']);
-Route::put('question/update/{id}', [QuestionController::class, 'update']);
+Route::get('question/create/{id}', [QuestionController::class, 'create'])->name('addquestion'); // get form to create new questoin
+Route::post('question/store', [QuestionController::class, 'store']); // add data to database
+
+Route::get('question/edit/{id}', [QuestionController::class, 'edit']); // get form to updata question data
+Route::put('question/update/{id}', [QuestionController::class, 'update']); // set new data to database
