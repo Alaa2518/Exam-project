@@ -14,8 +14,42 @@
         <h4>Question type:{{$question->question_type}}</h4>
         <p><h6>Question?</h6>
             {{$question->body}}
-        </p>
-    </p>
+
+        <table class="table">
+        <thead class="thead-dark">
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Option</th>
+            <th scope="col">Ture or False</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            <?php $index = 0;?>
+            @foreach ($question->options as $onption)
+                        <tr>
+                            <th scope="row">{{++$index}}</th>
+                            <td>{{$onption->option}}</td>
+                            <td>{{$onption->isTrue}}</td>
+                        </tr>
+                    @if ($onption->option === 'true')
+                    <tr>
+                        <th scope="row">2</th>
+                        <td>False</td>
+                        <td>Fals</td>
+                    </tr>
+                    @endif
+                    @if ($onption->option === 'false')
+                        <tr>
+                        <th scope="row">2</th>
+                        <td>True</td>
+                        <td>Fals</td>
+                    </tr>
+                    @endif
+            @endforeach
+        </tbody>
+</table>
+
 
 @endsection
 
