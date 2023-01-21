@@ -49,10 +49,7 @@
         <input class="btn btn-primary" type="submit" name="submit"  placeholder="submit" >
         </div>
     </form>
-    {{-- live wire componate --}}
 
-
-    {{-- @livewire('options',['question_type'=>$question_type])  --}}
     {{-- javeScript coode to add options form  --}}
     <script>
         function makeOptions(div,number){
@@ -205,6 +202,8 @@
                 div.innerHTML = "";
             }
             });
+
+
     </script>
 @endsection
 

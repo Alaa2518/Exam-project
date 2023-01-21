@@ -98,8 +98,34 @@ class QuestionController extends Controller
     {
         //
         $question = Question::findorFail($id);
-
         $question->update($request->all());
+        if ($question->type !== $request->question_type){
+
+            // first go to the option and delete all rows of this type
+            Option::where('quetion_id','=', $id)->delete();
+            // second tacke all new update and add it as an new options on acreate
+
+            if ($request->question_type === 'trueOrFalse') {
+
+                Option::addTrueOrFales($request, $id);
+
+            } else if ($request->question_type === 'MCQ') {
+                Option::addMCQ($request, $id);
+            }
+
+        } else {
+                // first ditrmain if type of question true or mcq
+            if ($request->question_type === 'trueOrFalse') {
+
+                Option::updateTrueOrFales($request, $id);
+
+            } else if ($request->question_type === 'MCQ') {
+                Option::updateMCQ($request, $id);
+            }
+
+        }
+
+
 
         return redirect()->route('questions');
     }

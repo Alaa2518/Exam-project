@@ -36,14 +36,14 @@
                     <tr>
                         <th scope="row">2</th>
                         <td>False</td>
-                        <td>Fals</td>
+                        <td>False</td>
                     </tr>
                     @endif
                     @if ($onption->option === 'false')
                         <tr>
                         <th scope="row">2</th>
                         <td>True</td>
-                        <td>Fals</td>
+                        <td>False</td>
                     </tr>
                     @endif
             @endforeach

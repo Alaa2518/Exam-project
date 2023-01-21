@@ -19,12 +19,9 @@ class Option extends Model
     protected $fillable = ['id', 'question_id', 'option', 'isTrue'];
 
 
-    public function question()
-    {
-        return $this->belongsTo(Question::class);
-    }
 
-    static public function addMCQ(Request $request , int $id){
+
+    static public function  addMCQ(Request $request , int $id){
             $data=array();
             $istrue="False";
             for ($i =1 ; $i<=(int)$request->MCQ_number;$i++){
@@ -64,5 +61,28 @@ class Option extends Model
         ]);
         return true;
     }
+
+    static public function updateTrueOrFales(Request $request, int $id){
+
+        DB::table('options')
+        ->where('quetion_id', $id)
+        ->limit(1)
+        ->update(array('option' => $request->option,
+                        'isTrue' =>$request->isTrue
+                        ));
+
+        return true ;
+    }
+
+    static public function updateMCQ(Request $request, int $id){
+
+    }
+
+    public function question()
+    {
+        return $this->belongsTo(Question::class);
+    }
+
+
 
 }
