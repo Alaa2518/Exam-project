@@ -47,13 +47,13 @@
             {{-- chose if true of false --}}
                 @foreach ($question->options as $option)
                     <div class="form-check">
-                    <input class="form-check-input" type="radio" name="option" id="true" @if ($option->option === 'true') checked @endif>
+                    <input class="form-check-input" type="radio" name="trueOrFalse" value="true" id="true" @if ($option->option === 'true') checked @endif>
                     <label class="form-check-label" for="true">
                         True
                     </label>
                     </div>
                     <div class="form-check">
-                    <input class="form-check-input" type="radio" name="option" id="false" @if ($option->option === 'false') checked @endif >
+                    <input class="form-check-input" type="radio" name="trueOrFalse" value="false" id="false" @if ($option->option === 'false') checked @endif >
                     <label class="form-check-label" for="false">
                         False
                     </label>
@@ -78,7 +78,7 @@
                                 <input id={{$index}} name="option {{$index}}" type="text" required  class="form-control" value="{{$option->option}}">
                             </td>
                             <td>
-                                <input id="true_{{$index}}" name="true_Option_{{++$index}}" type="checkbox" value="true" @if($option->isTrue === 'True') checked @endif>
+                                <input id="true_{{$index}}" name="true_Option_{{$index++}}" type="checkbox" value="true" @if($option->isTrue === 'True') checked @endif>
 
                             </td>
                         </tr>
@@ -97,7 +97,7 @@
     </form>
 {{-- javascript to add new options  --}}
     <script>
-        const oldDiv = document.getElementById('old_opions_div');
+        let oldDiv = document.getElementById('old_opions_div');
         const oldQuestionType = document.getElementById('question_type').value;
         let isOldType = true ;
 
@@ -245,13 +245,15 @@
                 }else {
                     oldDiv.classList.remove('d-none');
                     isOldType = true ;
+                    document.getElementById("options").innerHTML ="";
                 }
 
         });
 
         document.getElementById('submit').addEventListener('submit',function(){
             if (!isOldType){
-                oldQuestionType.innerHTML = "";
+                console.log(oldDiv);
+                oldDiv.innerHTML = "";
             }
         });
     </script>

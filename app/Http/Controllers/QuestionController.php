@@ -97,9 +97,12 @@ class QuestionController extends Controller
     public function update(Request $request,$id)
     {
         //
+
         $question = Question::findorFail($id);
+        $oldQType =$question->question_type;
         $question->update($request->all());
-        if ($question->type !== $request->question_type){
+        $newQType = $request->question_type;
+        if ($oldQType !== $newQType){
 
             // first go to the option and delete all rows of this type
             Option::where('quetion_id','=', $id)->delete();
@@ -108,6 +111,7 @@ class QuestionController extends Controller
             if ($request->question_type === 'trueOrFalse') {
 
                 Option::addTrueOrFales($request, $id);
+
 
             } else if ($request->question_type === 'MCQ') {
                 Option::addMCQ($request, $id);
@@ -121,11 +125,10 @@ class QuestionController extends Controller
 
             } else if ($request->question_type === 'MCQ') {
                 Option::updateMCQ($request, $id);
+
             }
 
         }
-
-
 
         return redirect()->route('questions');
     }

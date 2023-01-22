@@ -21,6 +21,7 @@
             <th scope="col">#</th>
             <th scope="col">Option</th>
             <th scope="col">Ture or False</th>
+            <th scope="col">Delete Option</th>
 
             </tr>
         </thead>
@@ -31,12 +32,23 @@
                             <th scope="row">{{++$index}}</th>
                             <td>{{$onption->option}}</td>
                             <td>{{$onption->isTrue}}</td>
+                            <td><form action="{{url('options/delete/'.$onption->id.'/'.$question->id)}}" method="POST" class="col-4">
+            @csrf
+            @method('delete')
+                <button class="btn btn-danger " role="button" type="sbmit" >Delete</button>
+            </form></td>
                         </tr>
                     @if ($onption->option === 'true')
                     <tr>
                         <th scope="row">2</th>
                         <td>False</td>
                         <td>False</td>
+                        <td><form action="{{url('options/delete/'.$onption->id.'/'.$question->id)}}" method="POST" class="col-4">
+                                @csrf
+                                @method('delete')
+                                    <button class="btn btn-danger " role="button" type="sbmit" >Delete</button>
+                                </form>
+                    </td>
                     </tr>
                     @endif
                     @if ($onption->option === 'false')
@@ -44,6 +56,13 @@
                         <th scope="row">2</th>
                         <td>True</td>
                         <td>False</td>
+                        <td>
+                            <form action="{{url('options/delete/'.$onption->id.'/'.$question->id)}}" method="POST" class="col-4">
+                                @csrf
+                                @method('delete')
+                                    <button class="btn btn-danger " role="button" type="sbmit" >Delete</button>
+                                </form>
+                        </td>
                     </tr>
                     @endif
             @endforeach

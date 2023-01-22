@@ -67,14 +67,38 @@ class Option extends Model
         DB::table('options')
         ->where('quetion_id', $id)
         ->limit(1)
-        ->update(array('option' => $request->option,
-                        'isTrue' =>$request->isTrue
+        ->update(array('option' => $request->trueOrFalse,
+                        'isTrue' =>"True"
                         ));
-
         return true ;
     }
 
     static public function updateMCQ(Request $request, int $id){
+        // det all options from data base
+            $options = DB::table('options')->where('quetion_id', $id)->get();
+        // update data and send it to database
+
+        for ($i = 1 ; $i<=(int)count($options);$i++) {
+            if ($request['true_Option_'.$i] === 'true') {
+
+                    $data = array(
+                        'option'=>$request['option_'.$i],
+                        'isTrue'=>'True',
+                    );
+                    Option::where('id',$options[$i-1]->id)
+                    ->update($data);
+                }
+                else {
+                    $data = array(
+                        'option'=>$request['option_'.$i],
+                        'isTrue'=>'False',
+                    );
+                    Option::where('id',$options[$i-1]->id)
+                    ->update($data);
+                }
+
+                }
+
 
     }
 

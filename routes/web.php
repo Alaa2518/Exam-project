@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ExamController;
+use App\Http\Controllers\OptionController;
 use App\Http\Controllers\QuestionController;
 use Illuminate\Support\Facades\Route;
 
@@ -47,3 +48,7 @@ Route::post('question/store', [QuestionController::class, 'store']); // add data
 
 Route::get('question/edit/{id}', [QuestionController::class, 'edit']); // get form to updata question data
 Route::put('question/update/{id}', [QuestionController::class, 'update']); // set new data to database
+
+
+
+Route::delete('options/delete/{id}/{Qid}', [OptionController::class, 'destroy']);// delet one option
