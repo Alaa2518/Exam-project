@@ -17,7 +17,7 @@ class CreateOptionsTable extends Migration
             $table->id();
             $table->string('option', 255)->nullable(false)->default('True');
             $table->string('isTrue',5)->nullable(false)->default('True');
-            $table->foreignId('quetion_id')->constrained('questions')->cascadeOnDelete();
+            $table->foreignId('question_id')->constrained('questions')->cascadeOnDelete();
             $table->timestamps();
         });
     }

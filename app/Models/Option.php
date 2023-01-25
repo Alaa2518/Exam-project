@@ -12,10 +12,7 @@ class Option extends Model
 {
     use HasFactory;
 
-    // public $question_id ;
-    // public $option ;
-    // public $isTure;
-    // public $timestamps = false;
+
     protected $fillable = ['id', 'question_id', 'option', 'isTrue'];
 
 
@@ -106,6 +103,8 @@ class Option extends Model
     {
         return $this->belongsTo(Question::class);
     }
+
+
 
 
 

@@ -16,8 +16,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('exams');
 });
 
 Route::get('exam/show/{id}', [ExamController::class, 'show']); // route to show one exam

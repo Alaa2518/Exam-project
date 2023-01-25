@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Exam;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class QuestionFactory extends Factory
@@ -14,7 +15,10 @@ class QuestionFactory extends Factory
     public function definition()
     {
         return [
-            //
+                'question_type' => $this->faker->randomElement(['MCQ', 'trueOrFalse']),
+                'body' => $this->faker->unique()->realText($maxNbChars = 255, $indexSize = 2) ,
+                'exam_id' =>Exam::factory() ,
+                'created_at' => now(),
         ];
     }
 }

@@ -14,7 +14,7 @@ class QuestionController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function index()
     {
@@ -27,7 +27,7 @@ class QuestionController extends Controller
     /**
      * Show the form for creating a new resource.
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function create($id)
     {
@@ -64,7 +64,8 @@ class QuestionController extends Controller
      * Display the specified resource.
      *
      * @param  \App\Models\Question  $question
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\Contracts\View\View
      */
     public function show(Question $question,$id)
     {
@@ -77,7 +78,7 @@ class QuestionController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\View\View
      */
     public function edit($id)
     {
@@ -105,7 +106,7 @@ class QuestionController extends Controller
         if ($oldQType !== $newQType){
 
             // first go to the option and delete all rows of this type
-            Option::where('quetion_id','=', $id)->delete();
+            Option::where('question_id','=', $id)->delete();
             // second tacke all new update and add it as an new options on acreate
 
             if ($request->question_type === 'trueOrFalse') {
