@@ -18,7 +18,5 @@ class OptionSeeder extends Seeder
         //delete all data first
         Option::truncate();
 
-
-
     }
 }

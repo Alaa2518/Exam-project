@@ -4,7 +4,8 @@ namespace Database\Seeders;
 
 use Carbon\Carbon;
 use Illuminate\Database\Seeder;
-use Symfony\Component\Console\Question\Question;
+
+use App\Models\Question;
 
 class QuestionSeeder extends Seeder
 {

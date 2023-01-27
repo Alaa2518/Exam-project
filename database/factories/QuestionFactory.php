@@ -17,7 +17,7 @@ class QuestionFactory extends Factory
         return [
                 'question_type' => $this->faker->randomElement(['MCQ', 'trueOrFalse']),
                 'body' => $this->faker->unique()->realText($maxNbChars = 255, $indexSize = 2) ,
-                'exam_id' =>Exam::factory() ,
+                'exam_id' =>$this->faker->randomElement(Exam::all()->pluck('id')->toArray()) ,
                 'created_at' => now(),
         ];
     }

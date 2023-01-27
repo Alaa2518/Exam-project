@@ -33,7 +33,7 @@ class Option extends Model
                 $row = [
                     'option' => $request['option_'.$i],
                     'isTrue' => $istrue,
-                    'quetion_id' => $id,
+                    'question_id' => $id,
                     'created_at' => Carbon::now()->toDateTimeString(),
                     'updated_At' => Carbon::now()->toDateTimeString(),
                 ];
@@ -50,7 +50,7 @@ class Option extends Model
 
         // ADD true row if type of question true or false
         DB::table('options')->insert([
-            'quetion_id' => $id,
+            'question_id' => $id,
             'isTrue' => 'true',
             'option' => $request->trueOrFalse,
             'created_at' => Carbon::now()->toDateTimeString(),
@@ -62,7 +62,7 @@ class Option extends Model
     static public function updateTrueOrFales(Request $request, int $id){
 
         DB::table('options')
-        ->where('quetion_id', $id)
+        ->where('question_id', $id)
         ->limit(1)
         ->update(array('option' => $request->trueOrFalse,
                         'isTrue' =>"True"
@@ -72,7 +72,7 @@ class Option extends Model
 
     static public function updateMCQ(Request $request, int $id){
         // det all options from data base
-            $options = DB::table('options')->where('quetion_id', $id)->get();
+            $options = DB::table('options')->where('question_id', $id)->get();
         // update data and send it to database
 
         for ($i = 1 ; $i<=(int)count($options);$i++) {
