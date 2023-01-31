@@ -1,14 +1,11 @@
-@extends('layout.master')
 
-
-@section('title','create question')
-
-
-@section('contant')
-
-
-
-<h1>Create Question</h1>
+{{-- new stryle  --}}
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Add New Question') }}
+        </h2>
+    </x-slot>
 
 @if ($errors->any())
     <div class="alert alert-danger">
@@ -20,12 +17,11 @@
     </div>
 @endif
 
-<!-- Create Exam Form -->
-
-
-
-
-    <form action="{{url('question/store')}}" method="POST">
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-200">
+                    <form action="{{url('question/store')}}" method="POST">
         @csrf
         <div class="form-group col-4">
         <label for="exam_id">Exam Number</label>
@@ -49,7 +45,10 @@
         <input class="btn btn-primary" type="submit" name="submit"  placeholder="submit" >
         </div>
     </form>
-
+                </div>
+            </div>
+        </div>
+    </div>
     {{-- javeScript coode to add options form  --}}
     <script>
         function makeOptions(div,number){
@@ -205,6 +204,6 @@
 
 
     </script>
-@endsection
+</x-app-layout>
 
 

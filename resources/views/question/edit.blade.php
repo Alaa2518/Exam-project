@@ -1,12 +1,13 @@
-@extends('layout.master')
 
 
-@section('title','Edit Question')
 
-
-@section('contant')
-    <h1>Edit Question</h1>
-
+{{-- new style --}}
+<x-app-layout>
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Update') }}
+        </h2>
+    </x-slot>
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -17,98 +18,103 @@
         </div>
     @endif
 
-    <form action="{{url('question/update/'.$question->id)}}" method="POST">
-        @csrf
-        @method('PUT')
-        <div class="form-group col-4">
-        <label for="exam_id">Exam Number</label>
-        <select class="form-control" id="exam_id" name="exam_id" id="exam_id)">
-            <option value="{{$question->exam_id}}">{{$question->exam_id}}</option>
-        </select>
-        <label for="body">Question?</label>
-        <input class="form-control" type="text" required name="body" id="body" placeholder="Enter Question" value="{{$question->body}}">
-        <label for="title">Question Type</label>
-        <select class="form-control" id="question_type" name="question_type" id="question_type" >
-            @if($question->question_type==='trueOrFalse')
-                <option value="trueOrFalse" selected>True Or False Question</option>
-                <option value="MCQ" >MCQ</option>
-            @else
-                <option value="trueOrFalse" >True Or False Question</option>
-                <option value="MCQ" selected>MCQ</option>
-            @endif
-        </select>
+    <div class="py-12">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+                <div class="p-6 bg-white border-b border-gray-200">
+                                    <form action="{{url('question/update/'.$question->id)}}" method="POST">
+                    @csrf
+                    @method('PUT')
+                    <div class="form-group col-4">
+                    <label for="exam_id">Exam Number</label>
+                    <select class="form-control" id="exam_id" name="exam_id" id="exam_id)">
+                        <option value="{{$question->exam_id}}">{{$question->exam_id}}</option>
+                    </select>
+                    <label for="body">Question?</label>
+                    <input class="form-control" type="text" required name="body" id="body" placeholder="Enter Question" value="{{$question->body}}">
+                    <label for="title">Question Type</label>
+                    <select class="form-control" id="question_type" name="question_type" id="question_type" >
+                        @if($question->question_type==='trueOrFalse')
+                            <option value="trueOrFalse" selected>True Or False Question</option>
+                            <option value="MCQ" >MCQ</option>
+                        @else
+                            <option value="trueOrFalse" >True Or False Question</option>
+                            <option value="MCQ" selected>MCQ</option>
+                        @endif
+                    </select>
 
 
-        </div>
-        {{-- add dynamic part to update  --}}
-
-        <div class="col-12" id='old_opions_div'>
-            @if($question->question_type==='trueOrFalse')
-            {{-- chose if true of false --}}
-                @foreach ($question->options as $option)
-                    <div class="form-check">
-                    <input class="form-check-input" type="radio" name="trueOrFalse" value="true" id="true" @if ($option->option === 'true') checked @endif>
-                    <label class="form-check-label" for="true">
-                        True
-                    </label>
                     </div>
-                    <div class="form-check">
-                    <input class="form-check-input" type="radio" name="trueOrFalse" value="false" id="false" @if ($option->option === 'false') checked @endif >
-                    <label class="form-check-label" for="false">
-                        False
-                    </label>
-                    </div>
-                @endforeach
-            @else
-                {{--   else the question of type MCQ --}}
-            <table class="table">
-            <thead class="thead-dark">
-            <tr>
-            <th scope="col">#</th>
-            <th scope="col">Option</th>
-            <th scope="col">Ture or False</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php $index = 1;?>
-            @foreach ($question->options as $option)
+                    {{-- add dynamic part to update  --}}
+
+                    <div class="col-12" id='old_opions_div'>
+                        @if($question->question_type==='trueOrFalse')
+                        {{-- chose if true of false --}}
+                            @foreach ($question->options as $option)
+                                <div class="form-check">
+                                <input class="form-check-input" type="radio" name="trueOrFalse" value="true" id="true" @if ($option->option === 'true') checked @endif>
+                                <label class="form-check-label" for="true">
+                                    True
+                                </label>
+                                </div>
+                                <div class="form-check">
+                                <input class="form-check-input" type="radio" name="trueOrFalse" value="false" id="false" @if ($option->option === 'false') checked @endif >
+                                <label class="form-check-label" for="false">
+                                    False
+                                </label>
+                                </div>
+                            @endforeach
+                        @else
+                            {{--   else the question of type MCQ --}}
+                        <table class="table">
+                        <thead class="thead-dark">
                         <tr>
-                            <th scope="row">{{$index}}</th>
-                            <td>
-                                <input id={{$index}} name="option {{$index}}" type="text" required  class="form-control" value="{{$option->option}}">
-                            </td>
-                            <td>
-                                <input id="true_{{$index}}" name="true_Option_{{$index++}}" type="checkbox" value="true" @if($option->isTrue === 'True') checked @endif>
-
-                            </td>
+                        <th scope="col">#</th>
+                        <th scope="col">Option</th>
+                        <th scope="col">Ture or False</th>
                         </tr>
-            @endforeach
-        </tbody>
-        </table>
-            @endif
+                    </thead>
+                    <tbody>
+                        <?php $index = 1;?>
+                        @foreach ($question->options as $option)
+                                    <tr>
+                                        <th scope="row">{{$index}}</th>
+                                        <td>
+                                            <input id={{$index}} name="option {{$index}}" type="text" required  class="form-control" value="{{$option->option}}">
+                                        </td>
+                                        <td>
+                                            <input id="true_{{$index}}" name="true_Option_{{$index++}}" type="checkbox" value="true" @if($option->isTrue === 'True') checked @endif>
 
-        </div>
-        <div class="col-12 d-none" id="options">
+                                        </td>
+                                    </tr>
+                        @endforeach
+                    </tbody>
+                    </table>
+                        @endif
 
+                    </div>
+                    <div class="col-12 d-none" id="options">
+
+                    </div>
+                    <div class="form-group col-1">
+                    <input class="btn btn-primary" type="submit" name="submit" id='submit' placeholder="submit" >
+                    </div>
+                </form>
+                </div>
+            </div>
         </div>
-        <div class="form-group col-1">
-        <input class="btn btn-primary" type="submit" name="submit" id='submit' placeholder="submit" >
-        </div>
-    </form>
+    </div>
 {{-- javascript to add new options  --}}
     <script>
         let oldDiv = document.getElementById('old_opions_div');
         const oldQuestionType = document.getElementById('question_type').value;
         let isOldType = true ;
-
         // functions start
         function makeOptions(div,number){
-
             const tabel = document.createElement('table');
             tabel.classList.add('table');
             tabel.classList.add('table-striped');
             tabel.classList.add('table-bordered');
-
             div.appendChild(tabel);
             const thead = document.createElement('thead');
             thead.classList.add('thead-dark')
@@ -132,15 +138,12 @@
             for (let i =1 ;i<=number;i++ ){
                 let tr_i =document.createElement('tr');
                 tbody.appendChild(tr_i);
-
                 let th_i = document.createElement('th');
                 th_i.innerHTML = i;
                 th_i.scope = 'row';
                 tr_i.appendChild(th_i);
-
                 let td1 = document.createElement('td');
                 tr_i.appendChild(td1);
-
                 let input =  document.createElement('input');
                 input.id = i ;
                 input.name = "option "+i;
@@ -149,7 +152,6 @@
                 input.placeholder = 'enter input ';
                 input.classList.add('form-control');
                 td1.appendChild(input);
-
                 let td2 = document.createElement('td');
                 tr_i.appendChild(td2);
                 // checkbox if this option true or false
@@ -160,10 +162,8 @@
                 checkbox.type = "checkbox";
                 // checkbox.classList.add('form-check-input');
                 td2.appendChild(checkbox);
-
             }
         }
-
         function MCQ (){
                 let div = document.getElementById("options");// get div to add options
                 div.classList.remove('d-none');
@@ -174,7 +174,6 @@
                 label.setAttributeNode(forAt);
                 label.innerHTML  = "Enter Number Of Options";
                 div.appendChild(label);
-
                 // create text box ;
                 let textbox = document.createElement('input');
                 textbox.id = 'optionsNumber';
@@ -187,7 +186,6 @@
                 div.appendChild(textbox);
                 textbox.addEventListener('keyup',function(){
                     if (textbox.value >= 3 &&textbox.value < 11){
-
                         makeOptions(div , textbox.value); // this fuction to make the options input filde
                         textbox.type = 'hidden';
                         label.remove();
@@ -217,21 +215,15 @@
                 else{
                     input.id = "false" ;
                     input.value = 'false';
-
                     forAt.value = "false";
                     label.innerHTML  = "False";
                 }
-
                 label.setAttributeNode(forAt);
                 div.appendChild(input);
                 div.appendChild(label);
-
             }
         }
-
-
         // functions  end
-
         document.getElementById('question_type').addEventListener('change',function(){
                 let newQuestionType = document.getElementById('question_type').value;
                 if( oldQuestionType!==newQuestionType){
@@ -247,9 +239,7 @@
                     isOldType = true ;
                     document.getElementById("options").innerHTML ="";
                 }
-
         });
-
         document.getElementById('submit').addEventListener('submit',function(){
             if (!isOldType){
                 console.log(oldDiv);
@@ -257,7 +247,4 @@
             }
         });
     </script>
-
-@endsection
-
-
+</x-app-layout>

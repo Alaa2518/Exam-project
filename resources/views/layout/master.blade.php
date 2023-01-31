@@ -15,6 +15,6 @@
         @yield('contant')
     </main>
 
-
 </body>
 </html>
+
