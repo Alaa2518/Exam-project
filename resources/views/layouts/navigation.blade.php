@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100 bg-dark">
+<nav x-data="{ open: false }" class="bg-gray border-b border-gray-100" >
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
@@ -16,7 +16,8 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     <!-- Admin Routs -->
-                    <x-nav-link :href="route('exams')" :active="request()->routeIs('exams')">
+                    @if ((int)Auth::user()->user_type === 1)
+                        <x-nav-link :href="route('exams')" :active="request()->routeIs('exams')">
                         {{ __('Exams') }}
                     </x-nav-link>
                     <x-nav-link :href="route('addExam')" :active="request()->routeIs('addExam')">
@@ -25,6 +26,9 @@
                     <x-nav-link :href="route('questions')" :active="request()->routeIs('questions')">
                         {{ __('Questions') }}
                     </x-nav-link>
+                    @else
+
+                    @endif
 
                 </div>
 

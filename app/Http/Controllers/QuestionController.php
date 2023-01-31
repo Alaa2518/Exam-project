@@ -45,7 +45,10 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
         //
-
+        $request->validate([
+            'body' => 'required|unique:questions|max:255',
+            'question_type' => 'required|unique:questions|max:255',
+        ]);
         Question::Create($request->all());
         $id = Question::all()->last()->id ;
 
@@ -70,6 +73,7 @@ class QuestionController extends Controller
     public function show(Question $question,$id)
     {
         //
+
         $question = Question::findOrFail($id);
         return view('question.show', compact('question'));
     }
@@ -98,6 +102,10 @@ class QuestionController extends Controller
     public function update(Request $request,$id)
     {
         //
+        $request->validate([
+            'body' => 'required|unique:questions|max:255',
+            'question_type' => 'required|unique:questions|max:255',
+        ]);
 
         $question = Question::findorFail($id);
         $oldQType =$question->question_type;
