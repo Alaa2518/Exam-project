@@ -28,6 +28,10 @@ class DatabaseSeeder extends Seeder
         \App\Models\Question::factory(500)->create();
         \App\Models\Option::factory(2000)->create();
 
+        $this->call([
+            RoleSeeder::class,
+            AdminSeeder::class,
+        ]);
 
     }
 }
