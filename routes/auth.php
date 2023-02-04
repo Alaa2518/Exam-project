@@ -1,4 +1,7 @@
 <?php
+use App\Http\Controllers\Admin\IndexController;
+use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\OptionController;
 use App\Http\Controllers\QuestionController;
@@ -36,7 +39,7 @@ Route::middleware('guest')->group(function () {
                 ->name('password.update');
 });
 
-Route::middleware(['auth'])->group(function () {
+Route::middleware(['auth','role:superAdmin'])->group(function () {
     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
                 ->name('verification.notice');
 
@@ -95,3 +98,13 @@ Route::middleware(['auth'])->group(function () {
 
     Route::delete('options/delete/{id}/{Qid}', [OptionController::class, 'destroy']); // delet one option
 });
+
+// admin roles and premations
+
+Route::middleware(['auth', 'role:superAdmin'])->name('admin.')->prefix('admin')->group(function () {
+
+    Route::get('/', [IndexController::class,'index'])->name('index');
+    Route::resource('/roles', RoleController::class);
+    Route::resource('/permissions', PermissionController::class);
+});
+

@@ -15,18 +15,18 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        // $this->call([
+        $this->call([
 
-        //     OptionSeeder::class,
-        //     QuestionSeeder::class,
-        //     ExamSeeder::class,
+            OptionSeeder::class,
+            QuestionSeeder::class,
+            ExamSeeder::class,
 
-        // ]);
+        ]);
             // delete all data first
 
         \App\Models\Exam::factory(50)->create();
         \App\Models\Question::factory(500)->create();
-        \App\Models\Option::factory(2000)->create();
+        \App\Models\Option::factory(1250)->create();
 
         $this->call([
             RoleSeeder::class,

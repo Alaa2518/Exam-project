@@ -16,7 +16,7 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                     <!-- Admin Routs -->
-                    @if ((int)Auth::user()->user_type === 1)
+                    @role('superAdmin')
                         <x-nav-link :href="route('exams')" :active="request()->routeIs('exams')">
                         {{ __('Exams') }}
                     </x-nav-link>
@@ -26,9 +26,12 @@
                     <x-nav-link :href="route('questions')" :active="request()->routeIs('questions')">
                         {{ __('Questions') }}
                     </x-nav-link>
-                    @else
+                    <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
+                        {{ __('Admin Roles') }}
+                    </x-nav-link>
+                    @endrole
 
-                    @endif
+
 
                 </div>
 
