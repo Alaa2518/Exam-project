@@ -2,6 +2,7 @@
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\OptionController;
 use App\Http\Controllers\QuestionController;
@@ -39,25 +40,29 @@ Route::middleware('guest')->group(function () {
                 ->name('password.update');
 });
 
-Route::middleware(['auth','role:superAdmin'])->group(function () {
+Route::middleware('auth')->group(function () {
     Route::get('verify-email', [EmailVerificationPromptController::class, '__invoke'])
-                ->name('verification.notice');
+        ->name('verification.notice');
 
     Route::get('verify-email/{id}/{hash}', [VerifyEmailController::class, '__invoke'])
-                ->middleware(['signed', 'throttle:6,1'])
-                ->name('verification.verify');
+        ->middleware(['signed', 'throttle:6,1'])
+        ->name('verification.verify');
 
     Route::post('email/verification-notification', [EmailVerificationNotificationController::class, 'store'])
-                ->middleware('throttle:6,1')
-                ->name('verification.send');
+        ->middleware('throttle:6,1')
+        ->name('verification.send');
 
     Route::get('confirm-password', [ConfirmablePasswordController::class, 'show'])
-                ->name('password.confirm');
+        ->name('password.confirm');
 
     Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
-                ->name('logout');
+        ->name('logout');
+
+});
+
+Route::middleware(['auth','role:superAdmin'])->group(function () {
 
 
     // Exam routs
@@ -106,5 +111,40 @@ Route::middleware(['auth', 'role:superAdmin'])->name('admin.')->prefix('admin')-
     Route::get('/', [IndexController::class,'index'])->name('index');
     Route::resource('/roles', RoleController::class);
     Route::resource('/permissions', PermissionController::class);
+
+    Route::get('/permission/create', [PermissionController::class, 'create']); // get form to create new permission
+    Route::post('/permission/store', [PermissionController::class, 'store']); // add data to database
+
+    Route::get('/role/create', [RoleController::class, 'create']); // get form to create new role
+    Route::post('/role/store', [RoleController::class, 'store']); // add data to database
+
+    Route::get('/permission/edit/{id}', [PermissionController::class, 'edit']); // get form to updata question data
+    Route::put('/permission/update/{id}', [PermissionController::class, 'update']); // set new data to database
+
+    Route::delete('/permission/delete/{id}', [PermissionController::class, 'destroy']); // delet one option
+
+    Route::get('/role/edit/{id}', [RoleController::class, 'edit']); // get form to updata question data
+    Route::put('/role/update/{id}', [RoleController::class, 'update']); // set new data to database
+
+    Route::delete('/role/delete/{id}', [RoleController::class, 'destroy']); // delet one option
+
+    // new assign permission to role
+
+    Route::post('/roles/{role}/permissions', [RoleController::class, 'givePermission'])->name('roles.permissions'); // add data to database
+    Route::delete('/roles/{role}/permissions/{permission}', [RoleController::class, 'revokePermission'])->name('roles.permissions.revoke'); // add data to database
+
+
+    // users index form to admin
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
+    Route::delete('/users/delete/{id}', [UserController::class, 'destroy'])->name('users.destroy');
+
+    Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
+    Route::post('/users/{user}/roles', [UserController::class, 'assignRole'])->name('users.roles');
+    Route::delete('/users/{user}/roles/{role}', [UserController::class, 'removeRole'])->name('users.roles.remove');
+    Route::post('/users/{user}/permissions', [UserController::class, 'givePermission'])->name('users.permissions');
+    Route::delete('/users/{user}/permissions/{permission}', [UserController::class, 'revokePermission'])->name('users.permissions.revoke');
+
+
 });
 

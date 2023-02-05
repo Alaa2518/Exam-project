@@ -14,18 +14,22 @@
                 <thead>
                     <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Role</th>
-                    <th scope="col">Edit</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">option</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($roles as $role)
+                    @foreach($users as $user)
                             <tr>
-                            <th scope="row">{{$role->id}}</th>
-                            <td>{{$role->name}}</td>
+                            <th scope="row">{{$user->id}}</th>
+                            <td>{{$user->name}}</td>
+                            <td>{{$user->email}}</td>
                             <td>
-                                <a class="btn btn-primary col-4" href="{{url('admin/role/edit/'.$role->id)}}" role="button" >Edit</a>
-                                <form action="{{url('admin/role/delete/'.$role->id)}}" method="POST" >
+                                <a class="btn btn-primary col-4" href="{{url('admin/role/edit/'.$user->id)}}" role="button" >Roles</a>
+                                <a class="btn btn-primary col-4" href="{{url('admin/role/edit/'.$user->id)}}" role="button" >Permission</a>
+
+                                <form action="{{url('admin/users/delete/'.$user->id)}}" method="POST" >
                                 @csrf
                                 @method('delete')
                                     <button class="btn btn-danger " role="button" type="sbmit" >Delete</button>

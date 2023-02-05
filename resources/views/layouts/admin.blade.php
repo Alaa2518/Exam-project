@@ -46,17 +46,12 @@
                             </a>
                         </li>
                         <li>
-                            <a href="#" class="nav-link text-white">
+                            <a href="{{route('admin.users.index')}}" class="nav-link text-white">
                             <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>
-                            Products
+                            Users
                             </a>
                         </li>
-                        <li>
-                            <a href="#" class="nav-link text-white">
-                            <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>
-                            Customers
-                            </a>
-                        </li>
+
                         </ul>
                         <hr>
                         <div class="dropdown">
