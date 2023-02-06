@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Permission;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 
 class PermissionController extends Controller
@@ -14,53 +15,64 @@ class PermissionController extends Controller
     public function index()
     {
         $permissions = Permission::all();
-        return view('admin.permissions.index',compact('permissions'));
+        return view('admin.permissions.index', compact('permissions'));
     }
 
     public function create()
     {
-
         return view('admin.permissions.create');
     }
 
     public function store(Request $request){
 
-        $validate = $request->validate([
-            'name' => 'required|min:3|max:255',
-        ]);
-        Permission::Create($validate);
-        return redirect()->route('admin.permissions.index');
+        $validated = $request->validate(['name' => 'required']);
+
+        Permission::create($validated);
+        return redirect()->route('admin.permissions.index')->with('message', 'Permission created.');
     }
 
 
-    public function edit($id)
+    public function edit(Permission $permission)
     {
-        //
-        $permission = Permission::findorFail($id);
-
-        return view('admin.permissions.edit', compact('permission'));
+        $roles = Role::all();
+        return view('admin.permissions.edit', compact('permission', 'roles'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Permission $permission)
     {
-        //
-        $validate = $request->validate([
-            'name' => 'required|min:3|max:255',
-        ]);
-        $permission = Permission::findorFail($id);
+        $validated = $request->validate(['name' => 'required']);
+        $permission->update($validated);
 
-        $permission->update($validate);
-
-        return redirect()->route('admin.permissions.index');
+        return redirect()->route('admin.permissions.index')->with('message', 'Permission updated.');
 
     }
 
 
-    public function destroy($id)
+    public function destroy(Permission $permission)
     {
-        //
-        Permission::findorFail($id)->delete();
-        return redirect()->route('admin.permissions.index');
+        $permission->delete();
+
+        return back()->with('message', 'Permission deleted.');
+    }
+
+    public function assignRole(Request $request, Permission $permission)
+    {
+        if ($permission->hasRole($request->role)) {
+            return back()->with('message', 'Role exists.');
+        }
+
+        $permission->assignRole($request->role);
+        return back()->with('message', 'Role assigned.');
+    }
+
+    public function removeRole(Permission $permission, Role $role)
+    {
+        if ($permission->hasRole($role)) {
+            $permission->removeRole($role);
+            return back()->with('message', 'Role removed.');
+        }
+
+        return back()->with('message', 'Role not exists.');
     }
 
 

@@ -12,19 +12,11 @@ class UserController extends Controller
 {
     //
 
-    public function index(){
-        $users = User::all();
-        return view('admin.users.index', compact('users'));
-    }
-
-    public function destroy(User $user)
+    public function index()
     {
-        if ($user->hasRole('admin')) {
-            return back()->with('message', 'you are admin.');
-        }
-        $user->delete();
+        $users = User::all();
 
-        return back()->with('message', 'User deleted.');
+        return view('admin.users.index', compact('users'));
     }
 
     public function show(User $user)
@@ -71,6 +63,16 @@ class UserController extends Controller
             return back()->with('message', 'Permission revoked.');
         }
         return back()->with('message', 'Permission does not exists.');
+    }
+
+    public function destroy(User $user)
+    {
+        if ($user->hasRole('superAdmin')) {
+            return back()->with('message', 'you are super admin.');
+        }
+        $user->delete();
+
+        return back()->with('message', 'User deleted.');
     }
 
 

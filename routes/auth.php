@@ -107,44 +107,20 @@ Route::middleware(['auth','role:superAdmin'])->group(function () {
 // admin roles and premations
 
 Route::middleware(['auth', 'role:superAdmin'])->name('admin.')->prefix('admin')->group(function () {
-
-    Route::get('/', [IndexController::class,'index'])->name('index');
+    Route::get('/', [IndexController::class, 'index'])->name('index');
     Route::resource('/roles', RoleController::class);
+    Route::post('/roles/{role}/permissions', [RoleController::class, 'givePermission'])->name('roles.permissions');
+    Route::delete('/roles/{role}/permissions/{permission}', [RoleController::class, 'revokePermission'])->name('roles.permissions.revoke');
     Route::resource('/permissions', PermissionController::class);
-
-    Route::get('/permission/create', [PermissionController::class, 'create']); // get form to create new permission
-    Route::post('/permission/store', [PermissionController::class, 'store']); // add data to database
-
-    Route::get('/role/create', [RoleController::class, 'create']); // get form to create new role
-    Route::post('/role/store', [RoleController::class, 'store']); // add data to database
-
-    Route::get('/permission/edit/{id}', [PermissionController::class, 'edit']); // get form to updata question data
-    Route::put('/permission/update/{id}', [PermissionController::class, 'update']); // set new data to database
-
-    Route::delete('/permission/delete/{id}', [PermissionController::class, 'destroy']); // delet one option
-
-    Route::get('/role/edit/{id}', [RoleController::class, 'edit']); // get form to updata question data
-    Route::put('/role/update/{id}', [RoleController::class, 'update']); // set new data to database
-
-    Route::delete('/role/delete/{id}', [RoleController::class, 'destroy']); // delet one option
-
-    // new assign permission to role
-
-    Route::post('/roles/{role}/permissions', [RoleController::class, 'givePermission'])->name('roles.permissions'); // add data to database
-    Route::delete('/roles/{role}/permissions/{permission}', [RoleController::class, 'revokePermission'])->name('roles.permissions.revoke'); // add data to database
-
-
-    // users index form to admin
+    Route::post('/permissions/{permission}/roles', [PermissionController::class, 'assignRole'])->name('permissions.roles');
+    Route::delete('/permissions/{permission}/roles/{role}', [PermissionController::class, 'removeRole'])->name('permissions.roles.remove');
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
-
-    Route::delete('/users/delete/{id}', [UserController::class, 'destroy'])->name('users.destroy');
-
     Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
+    Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
     Route::post('/users/{user}/roles', [UserController::class, 'assignRole'])->name('users.roles');
     Route::delete('/users/{user}/roles/{role}', [UserController::class, 'removeRole'])->name('users.roles.remove');
     Route::post('/users/{user}/permissions', [UserController::class, 'givePermission'])->name('users.permissions');
     Route::delete('/users/{user}/permissions/{permission}', [UserController::class, 'revokePermission'])->name('users.permissions.revoke');
-
 
 });
 

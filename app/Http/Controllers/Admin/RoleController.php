@@ -13,76 +13,64 @@ class RoleController extends Controller
 
     public function index()
     {
-        $roles = Role::all();
-        return view('admin.roles.index',compact('roles'));
+        $roles = Role::whereNotIn('name', ['superAdmin'])->get();
+        return view('admin.roles.index', compact('roles'));
     }
 
-    public function create(){
-
+    public function create()
+    {
         return view('admin.roles.create');
     }
 
     public function store(Request $request)
     {
 
-        $validate =$request->validate([
-            'name' => 'required|min:3|max:255',
-        ]);
-        Role::Create($validate);
+        $validated = $request->validate(['name' => ['required', 'min:3']]);
+        Role::create($validated);
 
-        return redirect()->route('admin.roles.index');
+        return redirect()->route('admin.roles.index')->with('message', 'Role Created successfully.');
     }
 
-    public function edit($id)
+
+    public function edit(Role $role)
     {
-        //
         $permissions = Permission::all();
-        $role = Role::findorFail($id);
-
-        return view('admin.roles.edit', compact('role','permissions'));
+        return view('admin.roles.edit', compact('role', 'permissions'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, Role $role)
     {
-        //
-        $validate = $request->validate([
-            'name' => 'required|min:3|max:255',
-        ]);
-        $role = Role::findorFail($id);
+        $validated = $request->validate(['name' => ['required', 'min:3']]);
+        $role->update($validated);
 
-        $role->update($validate);
-
-        return redirect()->route('admin.roles.index');
+        return redirect()->route('admin.roles.index')->with('message', 'Role Updated successfully.');
 
     }
 
 
-    public function destroy($id)
+    public function destroy(Role $role)
     {
-        //
-        Role::findorFail($id)->delete();
-        return redirect()->route('admin.roles.index');
+        $role->delete();
+
+        return back()->with('message', 'Role deleted.');
     }
 
 
-    public function givePermission(Request $request ,Role $role){
-        if ($role->hasPermissionTo($request->permission)){
-
-            return back()->with('message', 'permission Exist.');
-
+    public function givePermission(Request $request, Role $role)
+    {
+        if ($role->hasPermissionTo($request->permission)) {
+            return back()->with('message', 'Permission exists.');
         }
         $role->givePermissionTo($request->permission);
-        return back()->with('message', 'permission added.');
-
+        return back()->with('message', 'Permission added.');
     }
 
-    public function revokePermission(Role $role ,Permission $permission){
+    public function revokePermission(Role $role, Permission $permission)
+    {
         if ($role->hasPermissionTo($permission)) {
             $role->revokePermissionTo($permission);
-            return back()->with('message', 'permission revoked.');
-
+            return back()->with('message', 'Permission revoked.');
         }
-        return back()->with('message', 'permission not exists.');
-
+        return back()->with('message', 'Permission not exists.');
     }
 }
