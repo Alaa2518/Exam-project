@@ -31,6 +31,14 @@
                     </x-nav-link>
                     @endrole
 
+                    {{-- users links on navbar --}}
+                    @role('user')
+                    <x-nav-link :href="route('user.exam')" :active="request()->routeIs('user.exam')">
+                        {{ __('My Exam') }}
+                    </x-nav-link>
+
+                    @endrole
+
 
 
                 </div>

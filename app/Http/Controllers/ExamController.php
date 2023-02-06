@@ -111,4 +111,15 @@ class ExamController extends Controller
         Exam::findorFail($id)->delete();
         return redirect()->route('exams');
     }
+
+
+
+    // function to return one exam to user
+
+    public function tackExam(){
+
+        $exam = Exam::findorFail(1);
+
+        return view('user.exam',compact('exam'));
+    }
 }

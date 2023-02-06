@@ -22,7 +22,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                                    <form action="{{url('question/update/'.$question->id)}}" method="POST">
+                    <form action="{{url('question/update/'.$question->id)}}" method="POST">
                     @csrf
                     @method('PUT')
                     <div class="form-group col-4">
@@ -42,11 +42,8 @@
                             <option value="MCQ" selected>MCQ</option>
                         @endif
                     </select>
-
-
                     </div>
                     {{-- add dynamic part to update  --}}
-
                     <div class="col-12" id='old_opions_div'>
                         @if($question->question_type==='trueOrFalse')
                         {{-- chose if true of false --}}
@@ -84,17 +81,14 @@
                                         </td>
                                         <td>
                                             <input id="true_{{$index}}" name="true_Option_{{$index++}}" type="checkbox" value="true" @if($option->isTrue === 'True') checked @endif>
-
                                         </td>
                                     </tr>
                         @endforeach
                     </tbody>
                     </table>
                         @endif
-
                     </div>
                     <div class="col-12 d-none" id="options">
-
                     </div>
                     <div class="form-group col-1">
                     <input class="btn btn-primary" type="submit" name="submit" id='submit' placeholder="submit" >
