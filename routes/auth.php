@@ -128,4 +128,6 @@ Route::middleware(['auth', 'role:superAdmin'])->name('admin.')->prefix('admin')-
 
 Route::middleware(['auth', 'role:user'])->name('user.')->prefix('user')->group(function () {
     Route::get('/exam', [ExamController::class, 'tackExam'])->name('exam');
+    Route::put('/exam/result/{id}', [ExamController::class, 'resultExam'])->name('exam.result');
+
 });

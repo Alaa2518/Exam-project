@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Exam;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
 class ExamController extends Controller
 {
     /**
@@ -121,5 +124,26 @@ class ExamController extends Controller
         $exam = Exam::findorFail(1);
 
         return view('user.exam',compact('exam'));
+    }
+
+    public function resultExam(Request $request,int $id)
+    {
+        $exam = Exam::findorFail(1);
+
+        $questions = $exam->questions;
+        $result = 0;
+        foreach ($questions as $question) {
+            foreach ($question->options as $option) {
+                if ($request[$option->id] === $option->isTrue)
+                        $result++;
+            }
+        }
+
+        DB::table('users_exams')->insert([
+            'user_id' =>(int)Auth::user()->id,
+            'exam_id'=>(int)$id,
+            'result'=>$result
+        ]);
+        return response('grate inter result ');
     }
 }

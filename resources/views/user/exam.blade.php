@@ -17,7 +17,7 @@
                         <h3>Exam: {{$exam->title}}</h3>
                     </p>
                     <h3>Questions</h3>
-                    <form action="{{url('user/exam/check'.$exam->id)}}" method="POST">
+                    <form action="{{route('user.exam.result',$exam->id)}}" method="POST">
                     @csrf
                     @method('PUT')
                     <ul class="list-group">
@@ -41,30 +41,27 @@
                                                         {{-- <th scope="row">{{$option->id}}</th> --}}
                                                         <td>False</td>
                                                         <td>
-                                                            <input class="form-check-input" type="radio" name="true_{{$option->id}}" value="false" id="true_Option_{{$option->id}}"  >
-
+                                                            <input class="form-check-input" type="radio" name="{{$option->id}}" value="False" id="true_Option_{{$option->id}}"  >
                                                         </td>
                                                     </tr>
                                                     <tr>
                                                         {{-- <th scope="row">{{$option->id}}</th> --}}
                                                         <td>True</td>
                                                         <td>
-                                                        <input class="form-check-input" type="radio" name="true_{{$option->id}}" value="True" id="true_Option_{{$option->id}}">
+                                                        <input class="form-check-input" type="radio" name="{{$option->id}}" value="True" id="true_Option_{{$option->id}}">
                                                         </td>
                                                     </tr>
                                                 @endforeach
                                             @else
-
                                                 @foreach($question->options as $option)
                                                     <tr>
                                                         {{-- <th scope="row">{{$option->id}}</th> --}}
                                                         <td>{{$option->option}}</td>
                                                         <td>
-                                                            <input id="true_{{$option->id}}" name="true_Option_{{$option->id}}" type="checkbox" value="true">
+                                                            <input id="true_{{$option->id}}" name="{{$option->id}}" type="checkbox" value="True">
                                                         </td>
                                                     </tr>
                                                 @endforeach
-
                                         @endif
                                     </tbody>
                                     </table>
