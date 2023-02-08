@@ -144,6 +144,6 @@ class ExamController extends Controller
             'exam_id'=>(int)$id,
             'result'=>$result
         ]);
-        return response('grate inter result ');
+        return response('lyou result is '.$result);
     }
 }
