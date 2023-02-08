@@ -144,6 +144,6 @@ class ExamController extends Controller
             'exam_id'=>(int)$id,
             'result'=>$result
         ]);
-        return response('lyou result is '.$result);
+        return response('you result is '.$result);
     }
 }
