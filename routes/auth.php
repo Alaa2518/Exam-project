@@ -38,6 +38,11 @@ Route::middleware('guest')->group(function () {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.update');
+
+    Route::get('code', [AuthenticatedSessionController::class, 'createCode'])
+        ->name('code');
+
+    Route::post('code', [AuthenticatedSessionController::class, 'storeCode']);
 });
 
 Route::middleware('auth')->group(function () {
@@ -125,9 +130,9 @@ Route::middleware(['auth', 'role:superAdmin'])->name('admin.')->prefix('admin')-
 
 // user routes
 
-
 Route::middleware(['auth', 'role:user'])->name('user.')->prefix('user')->group(function () {
     Route::get('/exam', [ExamController::class, 'tackExam'])->name('exam');
     Route::put('/exam/result/{id}', [ExamController::class, 'resultExam'])->name('exam.result');
 
 });
+

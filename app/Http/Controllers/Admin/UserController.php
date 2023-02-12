@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Models\Permission;
 use App\Models\Role;
@@ -32,8 +33,8 @@ class UserController extends Controller
         if ($user->hasRole($request->role)) {
             return back()->with('message', 'Role exists.');
         }
-
         $user->assignRole($request->role);
+        $user->update(['code' => Str::random(5)]);
         return back()->with('message', 'Role assigned.');
     }
 
@@ -41,6 +42,7 @@ class UserController extends Controller
     {
         if ($user->hasRole($role)) {
             $user->removeRole($role);
+            $user->update(['code' => null]);
             return back()->with('message', 'Role removed.');
         }
 
