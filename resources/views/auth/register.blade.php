@@ -26,16 +26,6 @@
                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
             </div>
 
-            <!-- Admin Type -->
-            {{-- <div class="mt-4">
-                <x-label for="admin" class="inline" :value="__('Admin')" />
-                <x-input id="admin" class="inline" type="radio" name="user_type" :value="old('1')" required />
-            </div> --}}
-            <!-- User Type -->
-            {{-- <div class="mt-4"  >
-                <x-input id="user" class="inline" type="radio" name="user_type" :value="2" required  checked/>
-                <x-label for="user"  :value="__('User')" class="inline" />
-            </div> --}}
 
             <!-- Password -->
             <div class="mt-4">

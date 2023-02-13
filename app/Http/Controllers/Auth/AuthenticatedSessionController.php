@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Models\User;
+
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,10 +26,6 @@ class AuthenticatedSessionController extends Controller
      * @return \Illuminate\View\View
      */
 
-    public function createCode()
-    {
-        return view('auth.code');
-    }
 
     /**
      * Handle an incoming authentication request.
@@ -46,19 +42,7 @@ class AuthenticatedSessionController extends Controller
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
-    public function storeCode(Request $request)
-    {
-        // in this function take code and reassigen the email and password manul to use the user code
-        $validated = $request->validate(['code' => ['required', 'min:3','max:50']]);
-        $user = User::where('code', '=', $validated)->first();
-        if ($user === null){
-            return back()->with('tray agen');
-        }
-        $request = new LoginRequest(['email'=>$user->email,'password'=>$user->password]);
-        $request->authenticate();
-        $request->session()->regenerate();
-        return redirect()->route('dashboard');
-    }
+
 
     /**
      * Destroy an authenticated session.

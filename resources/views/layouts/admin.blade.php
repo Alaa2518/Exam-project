@@ -23,7 +23,7 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
 </head>
 
-<body class="font-sans antialiased bg-dark">
+<body class="font-sans antialiased ">
     @if (Session::has('message'))
         <!-- This example requires Tailwind CSS v2.0+ -->
         <div class="bg-indigo-600" x-data="{open: true}" x-show="open">
@@ -58,14 +58,13 @@
             </div>
         </div>
     @endif
-    <div class="flex-col w-full md:flex md:flex-row md:min-h-screen">
+    <div class="flex-col w-full md:flex md:flex-row md:min-h-screen ">
         <div @click.away="open = false"
-            class="flex flex-col flex-shrink-0 w-full text-gray-700 bg-white md:w-64 dark:text-gray-200 dark:bg-gray-800"
+            class="flex flex-col flex-shrink-0 w-full text-gray-700 bg-dark md:w-64 dark:text-gray-200 dark:bg-gray-800"
             x-data="{ open: false }">
             <div class="flex flex-row items-center justify-between flex-shrink-0 px-8 py-4">
-                <a href="/"
-                    class="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark:text-white focus:outline-none focus:shadow-outline">Flowtrail
-                    UI</a>
+                <a href="/exam/index"
+                    class="text-lg font-semibold tracking-widest text-gray-900 uppercase rounded-lg dark:text-white focus:outline-none focus:shadow-outline">Exam Pages</a>
                 <button class="rounded-lg md:hidden focus:outline-none focus:shadow-outline" @click="open = !open">
                     <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
                         <path x-show="!open" fill-rule="evenodd"
@@ -79,12 +78,12 @@
             </div>
             <nav :class="{'block': open, 'hidden': !open}"
                 class="flex-grow px-4 pb-4 md:block md:pb-0 md:overflow-y-auto">
-                <x-nav-link :href="route('admin.roles.index')" :active="request()->routeIs('admin.roles.index')">Roles
+                <x-nav-link :href="route('admin.roles.index')" :active="request()->routeIs('admin.roles.index')" class="d-block">Roles
                 </x-nav-link>
                 <x-nav-link :href="route('admin.permissions.index')"
-                    :active="request()->routeIs('admin.permissions.index')">Permissions</x-nav-link>
-                <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')">Users
-                </x-nav-link>
+                    :active="request()->routeIs('admin.permissions.index')" class="d-block ">Permissions</x-nav-link>
+                <x-nav-link :href="route('admin.users.index')" :active="request()->routeIs('admin.users.index')" class="d-block">Users
+                </x-nav-link >
                 <div @click.away="open = false" class="relative" x-data="{ open: false }">
                     <button @click="open = !open"
                         class="flex flex-row items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent rounded-lg dark:bg-transparent dark:focus:text-white dark:hover:text-white dark:focus:bg-gray-600 dark:hover:bg-gray-600 md:block hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:shadow-outline">
@@ -103,7 +102,7 @@
                         x-transition:leave-start="transform opacity-100 scale-100"
                         x-transition:leave-end="transform opacity-0 scale-95"
                         class="absolute right-0 w-full mt-2 origin-top-right rounded-md shadow-lg">
-                        <div class="px-2 py-2 bg-white rounded-md shadow dark:bg-gray-700">
+                        <div class="px-2 py-2 bg-secondary rounded-md shadow dark:bg-gray-700">
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <x-dropdown-link
@@ -118,7 +117,7 @@
                 </div>
             </nav>
         </div>
-        <div class="flex w-full bg-slate-50">
+        <div class="flex w-full bg-slate-50 bg-gray">
             {{ $slot }}
         </div>
     </div>

@@ -14,7 +14,6 @@
 
         <form method="POST" action="{{ route('code') }}">
             @csrf
-
             <!-- code -->
             <div>
                 <x-label for="code" :value="__('code')" />

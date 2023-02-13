@@ -7,6 +7,7 @@ use App\Http\Controllers\ExamController;
 use App\Http\Controllers\OptionController;
 use App\Http\Controllers\QuestionController;
 
+use App\Http\Controllers\Auth\CodeAuthentcatedSessionController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -39,10 +40,10 @@ Route::middleware('guest')->group(function () {
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.update');
 
-    Route::get('code', [AuthenticatedSessionController::class, 'createCode'])
+    Route::get('code', [CodeAuthentcatedSessionController::class, 'create'])
         ->name('code');
 
-    Route::post('code', [AuthenticatedSessionController::class, 'storeCode']);
+    Route::post('code', [CodeAuthentcatedSessionController::class, 'store']);
 });
 
 Route::middleware('auth')->group(function () {
@@ -69,13 +70,6 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware(['auth','role:superAdmin'])->group(function () {
 
-
-    // Exam routs
-
-    Route::get('/', function () {
-        return redirect()->route('exams');
-    }
-    );
 
     Route::get('exam/show/{id}', [ExamController::class, 'show']); // route to show one exam
 
