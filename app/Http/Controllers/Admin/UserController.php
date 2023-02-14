@@ -35,7 +35,8 @@ class UserController extends Controller
         }
         $user->assignRole($request->role);
         $user->update(['code' => Str::random(5)]);
-        return back()->with('message', 'Role assigned.');
+        return redirect('/sendEmail/' . $user->id);
+        // return back()->with('message', 'Role assigned.');
     }
 
     public function removeRole(User $user, Role $role)
@@ -43,6 +44,7 @@ class UserController extends Controller
         if ($user->hasRole($role)) {
             $user->removeRole($role);
             $user->update(['code' => null]);
+
             return back()->with('message', 'Role removed.');
         }
 

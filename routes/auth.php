@@ -101,6 +101,8 @@ Route::middleware(['auth','role:superAdmin'])->group(function () {
     Route::put('question/update/{id}', [QuestionController::class, 'update']); // set new data to database
 
     Route::delete('options/delete/{id}/{Qid}', [OptionController::class, 'destroy']); // delet one option
+
+    Route::get('/sendEmail/{id}', [EmailController::class, 'send']);// send email to user when get permaition to enter exam
 });
 
 // admin roles and premations
