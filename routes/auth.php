@@ -1,4 +1,5 @@
 <?php
+use App\Http\Controllers\API\EmailController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
@@ -6,6 +7,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ExamController;
 use App\Http\Controllers\OptionController;
 use App\Http\Controllers\QuestionController;
+
 
 use App\Http\Controllers\Auth\CodeAuthentcatedSessionController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -17,6 +19,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
+
 
 Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
