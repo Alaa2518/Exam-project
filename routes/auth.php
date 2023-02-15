@@ -106,6 +106,10 @@ Route::middleware(['auth','role:superAdmin'])->group(function () {
     Route::delete('options/delete/{id}/{Qid}', [OptionController::class, 'destroy']); // delet one option
 
     Route::get('/sendEmail/{id}', [EmailController::class, 'send']);// send email to user when get permaition to enter exam
+
+    // using excel sheet to add new users of  have role user
+    Route::get('/import_users',[UserController::class,'importUsers'])->name('import');
+    Route::post('/upload_users', [UserController::class, 'uploadUsers'])->name('upload');
 });
 
 // admin roles and premations

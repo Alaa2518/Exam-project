@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Imports\UsersImport;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Models\Permission;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UserController extends Controller
 {
@@ -81,5 +83,16 @@ class UserController extends Controller
         return back()->with('message', 'User deleted.');
     }
 
+
+    public function importUsers(){
+        return view('admin.users.import');
+
+    }
+
+    public function uploadUsers(Request $request){
+
+        Excel::import(new UsersImport,$request->file);
+        return redirect()->route('admin.users.index')->with('message','users added');
+    }
 
 }
