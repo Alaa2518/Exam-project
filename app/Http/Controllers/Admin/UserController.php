@@ -90,7 +90,7 @@ class UserController extends Controller
     }
 
     public function uploadUsers(Request $request){
-
+        $request->validate(['file' => ['required', 'mimes:csv,xlsx']]);
         Excel::import(new UsersImport,$request->file);
         return redirect()->route('admin.users.index')->with('message','users added');
     }
