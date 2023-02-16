@@ -3,9 +3,11 @@
 namespace App\Imports;
 
 
+use App\Mail\userMailable;
 use App\Models\User;
 use Hash;
 
+use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Str;
 
@@ -27,8 +29,8 @@ class UsersImport implements ToModel
         ]);
         if ($user->code){
             $user->assignRole(4);
+            Mail::to($user->email)->send(new userMailable($user));
         }
-
         else
             $user->assignRole(3);
         return $user ;
