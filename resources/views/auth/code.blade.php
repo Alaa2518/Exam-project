@@ -2,10 +2,9 @@
     <x-auth-card>
         <x-slot name="logo">
             <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
+                <x-application-logo  />
             </a>
         </x-slot>
-
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
 
@@ -14,17 +13,23 @@
 
         <form method="POST" action="{{ route('code') }}">
             @csrf
-            <!-- code -->
-            <div>
-                <x-label for="code" :value="__('code')" />
 
-                <x-input id="code" class="block mt-1 w-full" type="stingh" name="code" :value="old('code')" required autofocus />
+
+
+            <!-- code -->
+            <div class="col-12">
+                <x-label for="code" :value="__('code')" class="form-label" />
+                <x-input id="code" class="form-control"  type="stingh" name="code" :value="old('code')" required autofocus />
+                <div class="invalid-feedback">Please enter your Code.</div>
             </div>
 
-                <x-button class="ml-3">
+            <div class="col-12">
+                <x-button class="btn btn-primary w-100">
                     {{ __('Verification code') }}
                 </x-button>
             </div>
+
+
         </form>
     </x-auth-card>
 </x-guest-layout>
