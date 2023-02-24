@@ -7,74 +7,90 @@
             {{ __('Show Question') }}
         </h2>
     </x-slot>
+    <div class="breadcrumbs aos-init aos-animate" data-aos="fade-in">
+      <div class="container">
+        <h2>Exam :{{$question->exam->title}}</h2>
+        <p>Q {{$question->id}}: {{$question->body}}?</p>
+        <p>Question type:{{$question->question_type}}</p>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    <p class="lead">
-        <h4>Exam Title:{{$question->exam->title}}</h4>
-        <h4>Question Number:{{$question->id}}</h4>
-        <h4>Question type:{{$question->question_type}}</h4>
-        <p><h6>Question?</h6>
-            {{$question->body}}
+      </div>
+    </div>
 
-        <table class="table">
-        <thead class="thead-dark">
-            <tr>
-            <th scope="col">#</th>
-            <th scope="col">Option</th>
-            <th scope="col">Ture or False</th>
-            <th scope="col">Delete Option</th>
+        <section id="about" class="about">
+      <div class="container aos-init aos-animate" data-aos="fade-up">
+        <div class="row">
 
-            </tr>
-        </thead>
-        <tbody>
-            <?php $index = 0;?>
-            @foreach ($question->options as $onption)
-                        <tr>
-                            <th scope="row">{{++$index}}</th>
-                            <td>{{$onption->option}}</td>
-                            <td>{{$onption->isTrue}}</td>
-                            <td><form action="{{url('options/delete/'.$onption->id.'/'.$question->id)}}" method="POST" class="col-4">
-            @csrf
-            @method('delete')
-                <button class="btn btn-danger " role="button" type="sbmit" >Delete</button>
-            </form></td>
-                        </tr>
-                    @if ($onption->option === 'true')
+        <table class="table table-bordered table-primary ">
+                <thead>
                     <tr>
-                        <th scope="row">2</th>
-                        <td>False</td>
-                        <td>False</td>
-                        <td><form action="{{url('options/delete/'.$onption->id.'/'.$question->id)}}" method="POST" class="col-4">
-                                @csrf
-                                @method('delete')
-                                    <button class="btn btn-danger " role="button" type="sbmit" >Delete</button>
-                                </form>
-                    </td>
+                    <th scope="col" class="col-1">#</th>
+                    <th scope="col" class="col-8">Option</th>
+                    <th scope="col" class="col-1">Ture or False</th>
+                    <th scope="col" class="col-5">Delete Option</th>
+
+
                     </tr>
-                    @endif
-                    @if ($onption->option === 'false')
-                        <tr>
-                        <th scope="row">2</th>
-                        <td>True</td>
-                        <td>False</td>
-                        <td>
-                            <form action="{{url('options/delete/'.$onption->id.'/'.$question->id)}}" method="POST" class="col-4">
+                </thead>
+                <tbody>
+
+                    <?php $index = 0;?>
+                    @foreach ($question->options as $onption)
+
+                            <tr>
+                            <th scope="row" class="col-1">{{++$index}}</th>
+                            <td class="col-8">{{$onption->option}}</td>
+                            <td class="col-1">{{$onption->isTrue}}</td>
+                            <td class="col-5">
+
+                                <form action="{{url('options/delete/'.$onption->id.'/'.$question->id)}}" method="POST" style="width:100%;" >
                                 @csrf
                                 @method('delete')
-                                    <button class="btn btn-danger " role="button" type="sbmit" >Delete</button>
+                                    <button style="width:100%;" class="btn btn-outline-danger " role="button" type="sbmit" >Delete</button>
+                                </form>
+                            </td>
+                            </tr>
+
+                    @if ($onption->option === 'true')
+                        <tr>
+                        <th scope="row" class="col-1">2</th>
+                        <td class="col-8">False</td>
+                        <td class="col-1">False</td>
+                        <td class="col-5">
+                            <form action="{{url('options/delete/'.$onption->id.'/'.$question->id)}}" method="POST" style="width:100%;" >
+                                @csrf
+                                @method('delete')
+                                    <button style="width:100%;" class="btn btn-outline-danger " role="button" type="sbmit" >Delete</button>
                                 </form>
                         </td>
                     </tr>
                     @endif
-            @endforeach
-        </tbody>
-</table>
+                    @if ($onption->option === 'false')
+                        <tr>
+                        <th scope="row" class="col-1">2</th>
+                        <td class="col-6">True</td>
+                        <td class="col-3">False</td>
+                        <td class="col-5">
+                            <form action="{{url('options/delete/'.$onption->id.'/'.$question->id)}}" method="POST" style="width:100%;" >
+                                @csrf
+                                @method('delete')
+                                    <button style="width:100%;" class="btn btn-outline-danger " role="button" type="sbmit" >Delete</button>
+                                </form>
+                        </td>
+                    </tr>
+                @endif
 
-                </div>
-            </div>
+                @endforeach
+            </tbody>
+            </table>
+
         </div>
-    </div>
+
+      </div>
+    </section>
+
 </x-app-layout>
+
+
+
+
+

@@ -17,24 +17,58 @@
             </ul>
         </div>
     @endif
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    <form action="{{url('exam/update/'.$exam->id)}}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        <div class="form-group col-4">
-                        <label for="title">Exam Title</label>
-                        <input class="form-control" type="text" required name="title" id="title" placeholder="Enter Title" value="{{$exam['title']}}">
-                        </div>
-                        <div class="form-group col-1">
-                        <input class="btn btn-primary" type="submit" name="submit"  placeholder="submit" >
-                        </div>
-                    </form>
 
-                </div>
-            </div>
-        </div>
+    <div class="breadcrumbs aos-init aos-animate" data-aos="fade-in">
+      <div class="container">
+        <h2>Edit Exam</h2>
+        <p>Est dolorum ut non facere possimus quibusdam eligendi voluptatem. Quia id aut similique quia voluptas sit quaerat debitis. Rerum omnis ipsam aperiam consequatur laboriosam nemo harum praesentium. </p>
+      </div>
     </div>
+    <section id="contact" class="contact">
+
+
+      <div class="container aos-init aos-animate" data-aos="fade-up">
+
+        <div class="row mt-5">
+
+          <div class="col-lg-4">
+            <div class="info">
+              <div class="address">
+                <i class="bi bi-geo-alt"></i>
+                <h4>Exam Title:</h4>
+                <p>Enter Exam Name.</p>
+              </div>
+
+            </div>
+
+          </div>
+
+          <div class="col-lg-8 mt-5 mt-lg-0">
+
+            <form action="{{url('exam/update/'.$exam->id)}}" method="POST"  class="php-email-form">
+                @csrf
+                @method('PUT')
+                <div class="row">
+                <div class="form-group mt-3">
+
+                    <textarea class="form-control" name="title" rows="5" placeholder="Title" required="">{{$exam['title']}}</textarea>
+              </div>
+              {{-- <div class="my-3">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Your exam title has been sent. Thank you!</div>
+              </div> --}}
+              <div class="text-center">
+                <button type="submit">Send Exam Title</button>
+
+            </div>
+            </form>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
 </x-app-layout>

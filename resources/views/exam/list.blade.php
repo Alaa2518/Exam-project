@@ -23,7 +23,7 @@
             <div class="box">
               <h3>Exam {{$exam->id}}</h3>
               <ul>
-                <li>{{$exam['title']}}</li>
+                <li>{{$exam['title']}} <a  href="{{url('exam/show/'.$exam->id)}}" >See More</a></li>
 
                 <li><form action="{{url('exam/delete/'.$exam->id)}}" method="POST" >
                     @csrf
