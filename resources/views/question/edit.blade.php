@@ -8,6 +8,14 @@
             {{ __('Update') }}
         </h2>
     </x-slot>
+
+<div class="breadcrumbs aos-init aos-animate" data-aos="fade-in">
+      <div class="container">
+        <h2>Updae Question</h2>
+        <p>Add Header of Question and its options if of type MCQ enter number of options between 3 to 10 if this option true cklick on the check else don't cklick it if type of Question true or false CKlick on the true or false.If you don't change type of question if the old type of MCQ you can't change the number of them.</p>
+      </div>
+    </div>
+
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -18,22 +26,49 @@
         </div>
     @endif
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    <form action="{{url('question/update/'.$question->id)}}" method="POST">
-                    @csrf
-                    @method('PUT')
-                    <div class="form-group col-4">
-                    <label for="exam_id">Exam Number</label>
-                    <select class="form-control" id="exam_id" name="exam_id" id="exam_id)">
-                        <option value="{{$question->exam_id}}">{{$question->exam_id}}</option>
-                    </select>
-                    <label for="body">Question?</label>
-                    <input class="form-control" type="text" required name="body" id="body" placeholder="Enter Question" value="{{$question->body}}">
-                    <label for="title">Question Type</label>
-                    <select class="form-control" id="question_type" name="question_type" id="question_type" >
+
+
+    <section id="contact" class="contact">
+
+
+      <div class="container aos-init aos-animate" data-aos="fade-up">
+
+        <div class="row mt-5 text-center">
+
+          <div class="col-lg-4">
+            <div class="info">
+              <div class="address">
+                <i class="bi bi-question"></i>
+
+                <h4><label for="body">Question</label> </h4>
+                <p>Enter your question</p>
+              </div>
+
+              <div class="email">
+                <i class="bi bi-type"></i>
+                <h4><label for="question_type">Question Type</label> </h4>
+                <p>chose Question type</p>
+              </div>
+
+
+            </div>
+
+
+          </div>
+
+          <div class="col-lg-8 mt-5 mt-lg-0">
+
+        <form action="{{url('question/update/'.$question->id)}}" method="POST" class="php-email-form">
+        @csrf
+        @method('PUT')
+        <input type="hidden" id="exam_id" name="exam_id" value="{{$question->exam_id}}">
+        <div class="row">
+            <div class="form-group mt-3">
+                <textarea class="form-control" name="body" id="body" rows="5" placeholder="Enter Question" required="">{{$question->body}}</textarea>
+            </div>
+            <div class="form-group mt-3">
+
+                <select class="form-control" id="question_type" name="question_type" id="question_type" >
                         @if($question->question_type==='trueOrFalse')
                             <option value="trueOrFalse" selected>True Or False Question</option>
                             <option value="MCQ" >MCQ</option>
@@ -41,10 +76,10 @@
                             <option value="trueOrFalse" >True Or False Question</option>
                             <option value="MCQ" selected>MCQ</option>
                         @endif
-                    </select>
-                    </div>
+                </select>
+            </div>
                     {{-- add dynamic part to update  --}}
-                    <div class="col-12" id='old_opions_div'>
+                    <div class="form-group mt-3" id='old_opions_div'>
                         @if($question->question_type==='trueOrFalse')
                         {{-- chose if true of false --}}
                             @foreach ($question->options as $option)
@@ -88,157 +123,24 @@
                     </table>
                         @endif
                     </div>
-                    <div class="col-12 d-none" id="options">
-                    </div>
-                    <div class="form-group col-1">
-                    <input class="btn btn-primary" type="submit" name="submit" id='submit' placeholder="submit" >
-                    </div>
-                </form>
-                </div>
+            <div class="form-group mt-3" id="options">
+
             </div>
+
+
+                <div class="text-center">
+                <button type="submit">Submit Question</button>
+
+                </div>
         </div>
+
+    </form>
+
+        </div>
+
+      </div>
     </div>
+</section>
 {{-- javascript to add new options  --}}
-    <script>
-        let oldDiv = document.getElementById('old_opions_div');
-        const oldQuestionType = document.getElementById('question_type').value;
-        let isOldType = true ;
-        // functions start
-        function makeOptions(div,number){
-            const tabel = document.createElement('table');
-            tabel.classList.add('table');
-            tabel.classList.add('table-striped');
-            tabel.classList.add('table-bordered');
-            div.appendChild(tabel);
-            const thead = document.createElement('thead');
-            thead.classList.add('thead-dark')
-            tabel.appendChild(thead);
-            const tr = document.createElement('tr');
-            thead.appendChild(tr);
-            const th1 = document.createElement('th');
-            th1.innerHTML = '#';
-            th1.scope = 'col';
-            const th2 = document.createElement('th');
-            th2.innerHTML = 'Option';
-            th2.scope = 'col';
-            const th3 = document.createElement('th');
-            th3.innerHTML = 'If True';
-            th3.scope = 'col';
-            tr.appendChild(th1);
-            tr.appendChild(th2);
-            tr.appendChild(th3);
-            const tbody = document.createElement('tbody');
-            tabel.appendChild(tbody);
-            for (let i =1 ;i<=number;i++ ){
-                let tr_i =document.createElement('tr');
-                tbody.appendChild(tr_i);
-                let th_i = document.createElement('th');
-                th_i.innerHTML = i;
-                th_i.scope = 'row';
-                tr_i.appendChild(th_i);
-                let td1 = document.createElement('td');
-                tr_i.appendChild(td1);
-                let input =  document.createElement('input');
-                input.id = i ;
-                input.name = "option "+i;
-                input.type = "text";
-                input.required = true;
-                input.placeholder = 'enter input ';
-                input.classList.add('form-control');
-                td1.appendChild(input);
-                let td2 = document.createElement('td');
-                tr_i.appendChild(td2);
-                // checkbox if this option true or false
-                let checkbox =  document.createElement('input');
-                checkbox.id = "true_"+i ;
-                checkbox.value = 'true';
-                checkbox.name = "true_Option_"+i;
-                checkbox.type = "checkbox";
-                // checkbox.classList.add('form-check-input');
-                td2.appendChild(checkbox);
-            }
-        }
-        function MCQ (){
-                let div = document.getElementById("options");// get div to add options
-                div.classList.remove('d-none');
-                div.innerHTML = "";
-                let label = document.createElement("label"); // helep you to add option
-                let forAt =document.createAttribute('for');
-                forAt.value = 'option' ;
-                label.setAttributeNode(forAt);
-                label.innerHTML  = "Enter Number Of Options";
-                div.appendChild(label);
-                // create text box ;
-                let textbox = document.createElement('input');
-                textbox.id = 'optionsNumber';
-                textbox.name = 'MCQ_number';
-                textbox.type = 'number';
-                textbox.required = true;
-                textbox.min = 3;
-                textbox.max = 10;
-                textbox.classList.add("form-control");
-                div.appendChild(textbox);
-                textbox.addEventListener('keyup',function(){
-                    if (textbox.value >= 3 &&textbox.value < 11){
-                        makeOptions(div , textbox.value); // this fuction to make the options input filde
-                        textbox.type = 'hidden';
-                        label.remove();
-                    }
-                    else {
-                        label.innerHTML  = "Enter Number Of Options Between 3 to 10";
-                    }
-                });
-        }
-        function trueOrFalse(){
-            let div = document.getElementById("options");
-            div.classList.remove('d-none');
-            div.innerHTML = "";
-            for (let i =1 ;i<=2;i++ ){
-                let input =  document.createElement('input');
-                let label = document.createElement('label');
-                let forAt =document.createAttribute('for');
-                input.name = "trueOrFalse";
-                input.type = "radio";
-                input.classList.add('ustom-control-input');
-                if (i==1){
-                    input.id = "true" ;
-                    input.value = 'true';
-                    forAt.value = "true";
-                    label.innerHTML  = "True";
-                }
-                else{
-                    input.id = "false" ;
-                    input.value = 'false';
-                    forAt.value = "false";
-                    label.innerHTML  = "False";
-                }
-                label.setAttributeNode(forAt);
-                div.appendChild(input);
-                div.appendChild(label);
-            }
-        }
-        // functions  end
-        document.getElementById('question_type').addEventListener('change',function(){
-                let newQuestionType = document.getElementById('question_type').value;
-                if( oldQuestionType!==newQuestionType){
-                    oldDiv.classList.add('d-none');
-                    isOldType = false ;
-                    if(newQuestionType === 'trueOrFalse'){
-                        trueOrFalse();
-                    }else {
-                        MCQ();
-                    }
-                }else {
-                    oldDiv.classList.remove('d-none');
-                    isOldType = true ;
-                    document.getElementById("options").innerHTML ="";
-                }
-        });
-        document.getElementById('submit').addEventListener('submit',function(){
-            if (!isOldType){
-                console.log(oldDiv);
-                oldDiv.innerHTML = "";
-            }
-        });
-    </script>
+    <script src="{{asset('import/assets/js/editOptionsform.js')}}"></script>
 </x-app-layout>

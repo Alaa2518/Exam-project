@@ -33,7 +33,7 @@
           <div class="col-lg-4">
             <div class="info">
               <div class="address">
-                <i class="bi bi-geo-alt"></i>
+                <i class="bi bi-clipboard-check"></i>
                 <h4>Exam Title:</h4>
                 <p>Enter Exam Name.</p>
               </div>
@@ -57,7 +57,7 @@
                 <div class="sent-message">Your Exam Title has been sent. Thank you!</div>
               </div> --}}
               <div class="text-center">
-                <button type="submit">Send Exam Title</button>
+                <button type="submit">Add Exam </button>
 
             </div>
             </form>

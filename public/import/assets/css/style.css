@@ -154,7 +154,7 @@ h6 {
 }
 
 /**
-* Get Startet Button 
+* Get Startet Button
 */
 .get-started-btn {
   margin-left: 22px;
@@ -184,7 +184,7 @@ h6 {
 # Navigation Menu
 --------------------------------------------------------------*/
 /**
-* Desktop Navigation 
+* Desktop Navigation
 */
 .navbar {
   padding: 0;
@@ -297,7 +297,7 @@ h6 {
 }
 
 /**
-* Mobile Navigation 
+* Mobile Navigation
 */
 .mobile-nav-toggle {
   color: #37423b;
@@ -1374,6 +1374,8 @@ section {
   animation: animate-loading 1s linear infinite;
 }
 
+
+.contact .php-email-form select,
 .contact .php-email-form input,
 .contact .php-email-form textarea {
   border-radius: 4px;
@@ -1381,10 +1383,13 @@ section {
   font-size: 14px;
 }
 
+
+.contact .php-email-form select:focus,
 .contact .php-email-form input:focus,
 .contact .php-email-form textarea:focus {
   border-color: #5fcf80;
 }
+
 
 .contact .php-email-form input {
   height: 44px;
