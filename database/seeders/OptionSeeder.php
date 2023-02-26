@@ -15,8 +15,8 @@ class OptionSeeder extends Seeder
      */
     public function run()
     {
-        //delete all data first
-        // Option::truncate();
+
+        Option::factory(1250)->create();
 
     }
 }

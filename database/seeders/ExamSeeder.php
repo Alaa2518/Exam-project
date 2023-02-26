@@ -15,8 +15,8 @@ class ExamSeeder extends Seeder
      */
     public function run()
     {
-        //delete all data
-        // Exam::truncate();
+
+        Exam::factory(50)->create();
 
     }
 }

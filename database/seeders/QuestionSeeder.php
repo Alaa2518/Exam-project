@@ -16,8 +16,8 @@ class QuestionSeeder extends Seeder
      */
     public function run()
     {
-        //delete all data first
-        // Question::truncate();
+
+        Question::factory(500)->create();
 
     }
 }
