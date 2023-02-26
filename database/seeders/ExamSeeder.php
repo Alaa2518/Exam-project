@@ -16,9 +16,7 @@ class ExamSeeder extends Seeder
     public function run()
     {
         //delete all data
-        Exam::truncate();
-
-
+        // Exam::truncate();
 
     }
 }

@@ -8,14 +8,21 @@
         </h2>
     </x-slot>
 
+    <div class="breadcrumbs aos-init aos-animate" data-aos="fade-in">
+      <div class="container">
+        <h2>Exam {{$exam->id}}</h2>
+        <h3>{{$exam->title}}</h3>
+        <p>Solve the fowlling questions for This exam. You should don't move to the questions if you don't solve it. There are two types of questions true or false and MCQ. The MCQ if you finde more than one option correct chose it.</p>
+      </div>
+    </div>
+
+
+
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    <p class="lead">
-                        <h3>Exam Number:{{$exam->id}}</h3>
-                        <h3>Exam: {{$exam->title}}</h3>
-                    </p>
+
                     <h3>Questions</h3>
                     <form action="{{route('user.exam.result',$exam->id)}}" method="POST">
                     @csrf

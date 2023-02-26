@@ -15,13 +15,15 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        $this->call([
+        // $this->call([
 
-            OptionSeeder::class,
-            QuestionSeeder::class,
-            ExamSeeder::class,
 
-        ]);
+        //     // ExamSeeder::class,
+
+        //     // QuestionSeeder::class,
+        //     // OptionSeeder::class,
+
+        // ]);
             // delete all data first
 
         \App\Models\Exam::factory(50)->create();

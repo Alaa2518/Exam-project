@@ -11,7 +11,7 @@
 
 <div class="breadcrumbs aos-init aos-animate" data-aos="fade-in">
       <div class="container">
-        <h2>Updae Question</h2>
+        <h2>Update Question</h2>
         <p>Add Header of Question and its options if of type MCQ enter number of options between 3 to 10 if this option true cklick on the check else don't cklick it if type of Question true or false CKlick on the true or false.If you don't change type of question if the old type of MCQ you can't change the number of them.</p>
       </div>
     </div>
@@ -69,13 +69,9 @@
             <div class="form-group mt-3">
 
                 <select class="form-control" id="question_type" name="question_type" id="question_type" >
-                        @if($question->question_type==='trueOrFalse')
-                            <option value="trueOrFalse" selected>True Or False Question</option>
-                            <option value="MCQ" >MCQ</option>
-                        @else
-                            <option value="trueOrFalse" >True Or False Question</option>
-                            <option value="MCQ" selected>MCQ</option>
-                        @endif
+                        <option value="trueOrFalse" {{ $question->question_type === 'trueOrFalse' ? "selected" : "" }} >True Or False Question</option>
+                        <option value="MCQ"  {{ $question->question_type === 'MCQ' ? "selected" : "" }} >MCQ</option>
+
                 </select>
             </div>
                     {{-- add dynamic part to update  --}}
@@ -83,43 +79,42 @@
                         @if($question->question_type==='trueOrFalse')
                         {{-- chose if true of false --}}
                             @foreach ($question->options as $option)
-                                <div class="form-check">
-                                <input class="form-check-input" type="radio" name="trueOrFalse" value="true" id="true" @if ($option->option === 'true') checked @endif>
-                                <label class="form-check-label" for="true">
-                                    True
-                                </label>
+
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" type="radio" name="trueOrFalse" value="true" id="true" @if ($option->option === 'true') checked @endif>
+                                    <label class="custom-control-label" for="true">True</label>
                                 </div>
-                                <div class="form-check">
-                                <input class="form-check-input" type="radio" name="trueOrFalse" value="false" id="false" @if ($option->option === 'false') checked @endif >
-                                <label class="form-check-label" for="false">
-                                    False
-                                </label>
+
+                                <div class="custom-control custom-radio">
+                                    <input class="custom-control-input" type="radio" name="trueOrFalse" value="false" id="false" @if ($option->option === 'false') checked @endif >
+                                    <label class="custom-control-label" for="false">False</label>
                                 </div>
+
+
                             @endforeach
                         @else
-                            {{--   else the question of type MCQ --}}
-                        <table class="table">
-                        <thead class="thead-dark">
-                        <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Option</th>
-                        <th scope="col">Ture or False</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php $index = 1;?>
-                        @foreach ($question->options as $option)
-                                    <tr>
-                                        <th scope="row">{{$index}}</th>
-                                        <td>
-                                            <input id={{$index}} name="option {{$index}}" type="text" required  class="form-control" value="{{$option->option}}">
-                                        </td>
-                                        <td>
-                                            <input id="true_{{$index}}" name="true_Option_{{$index++}}" type="checkbox" value="true" @if($option->isTrue === 'True') checked @endif>
-                                        </td>
-                                    </tr>
-                        @endforeach
-                    </tbody>
+
+                        <table class="table table-Success table-borderless table-hover ">
+                            <thead >
+                            <tr class="row">
+                            <th scope="col" class="col-11">Option</th>
+                            <th scope="col" class="col-1">True</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php $index = 1;?>
+                            @foreach ($question->options as $option)
+                                        <tr class="row ">
+                                            {{-- <th scope="row">{{$index}}</th> --}}
+                                            <td class="col-11 ">
+                                                <input  id={{$index}} name="option {{$index}}" type="text" required  class="form-control" value="{{$option->option}}">
+                                            </td>
+                                            <td class="col-1 ">
+                                                <input  id="true_{{$index}}" name="true_Option_{{$index++}}" type="checkbox" value="true" @if($option->isTrue === 'True') checked @endif>
+                                            </td>
+                                        </tr>
+                            @endforeach
+                        </tbody>
                     </table>
                         @endif
                     </div>

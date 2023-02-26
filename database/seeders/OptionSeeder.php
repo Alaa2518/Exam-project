@@ -16,7 +16,7 @@ class OptionSeeder extends Seeder
     public function run()
     {
         //delete all data first
-        Option::truncate();
+        // Option::truncate();
 
     }
 }

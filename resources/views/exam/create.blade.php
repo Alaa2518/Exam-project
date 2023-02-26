@@ -6,7 +6,15 @@
             {{ __('Add New Exam') }}
         </h2>
     </x-slot>
-    @if ($errors->any())
+
+
+<div class="breadcrumbs aos-init aos-animate" data-aos="fade-in">
+      <div class="container">
+        <h2>Create New Exam</h2>
+        <p>Est dolorum ut non facere possimus quibusdam eligendi voluptatem. Quia id aut similique quia voluptas sit quaerat debitis. Rerum omnis ipsam aperiam consequatur laboriosam nemo harum praesentium. </p>
+      </div>
+</div>
+@if ($errors->any())
     <div class="alert alert-danger">
         <ul>
             @foreach ($errors->all() as $error)
@@ -15,13 +23,6 @@
         </ul>
     </div>
 @endif
-
-<div class="breadcrumbs aos-init aos-animate" data-aos="fade-in">
-      <div class="container">
-        <h2>Create New Exam</h2>
-        <p>Est dolorum ut non facere possimus quibusdam eligendi voluptatem. Quia id aut similique quia voluptas sit quaerat debitis. Rerum omnis ipsam aperiam consequatur laboriosam nemo harum praesentium. </p>
-      </div>
-</div>
 
 <section id="contact" class="contact">
 

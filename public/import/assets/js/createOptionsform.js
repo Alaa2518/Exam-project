@@ -2,39 +2,45 @@ function makeOptions(div,number){
 
             const tabel = document.createElement('table');
             tabel.classList.add('table');
-            tabel.classList.add('table-striped');
-            tabel.classList.add('table-bordered');
+            tabel.classList.add('table-Success');
+            tabel.classList.add('table-borderless');
+            tabel.classList.add('table-hover');
 
             div.appendChild(tabel);
             const thead = document.createElement('thead');
-            thead.classList.add('thead-dark')
+            thead.classList.add('thead-dark');
             tabel.appendChild(thead);
             const tr = document.createElement('tr');
+            tr.classList.add('row');
             thead.appendChild(tr);
-            const th1 = document.createElement('th');
-            th1.innerHTML = '#';
-            th1.scope = 'col';
+            // const th1 = document.createElement('th');
+            // th1.innerHTML = '#';
+            // th1.scope = 'col';
             const th2 = document.createElement('th');
+            th2.classList.add('col-11');
             th2.innerHTML = 'Option';
             th2.scope = 'col';
             const th3 = document.createElement('th');
-            th3.innerHTML = 'If True';
+            th3.classList.add('col-1');
+            th3.innerHTML = 'True';
             th3.scope = 'col';
-            tr.appendChild(th1);
+            // tr.appendChild(th1);
             tr.appendChild(th2);
             tr.appendChild(th3);
             const tbody = document.createElement('tbody');
             tabel.appendChild(tbody);
             for (let i =1 ;i<=number;i++ ){
                 let tr_i =document.createElement('tr');
+                tr_i.classList.add('row');
                 tbody.appendChild(tr_i);
 
-                let th_i = document.createElement('th');
-                th_i.innerHTML = i;
-                th_i.scope = 'row';
-                tr_i.appendChild(th_i);
+                // let th_i = document.createElement('th');
+                // th_i.innerHTML = i;
+                // th_i.scope = 'row';
+                // tr_i.appendChild(th_i);
 
                 let td1 = document.createElement('td');
+                td1.classList.add('col-11');
                 tr_i.appendChild(td1);
 
                 let input =  document.createElement('input');
@@ -47,6 +53,7 @@ function makeOptions(div,number){
                 td1.appendChild(input);
 
                 let td2 = document.createElement('td');
+                td2.classList.add('col-1');
                 tr_i.appendChild(td2);
                 // checkbox if this option true or false
                 let checkbox =  document.createElement('input');

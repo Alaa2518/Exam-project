@@ -15,7 +15,7 @@ class AddCodeToUsers extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->string('code', 50);
+            $table->string('code', 50)->nullable(True);
         });
     }
 
