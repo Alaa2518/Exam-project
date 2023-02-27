@@ -17,23 +17,16 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
 
-
             ExamSeeder::class,
 
             QuestionSeeder::class,
             OptionSeeder::class,
 
-        ]);
-            // delete all data first
-
-
-
-
-
-        $this->call([
             RoleSeeder::class,
             AdminSeeder::class,
+
         ]);
+
 
     }
 }
