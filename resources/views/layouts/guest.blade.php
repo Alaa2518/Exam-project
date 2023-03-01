@@ -37,7 +37,7 @@
   <meta content="Exam learning test student" name="keywords">
 
   <!-- Favicons -->
-  <link href="{{asset('import/assets/img/favicon.png')}}" rel="icon">
+  <link href="{{asset('import/assets/img/logo.png')}}" rel="icon">
   <link href="{{asset('import/assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->

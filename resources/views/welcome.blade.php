@@ -147,7 +147,7 @@
   <meta content="exma app help teachers test student" name="keywords">
 
   <!-- Favicons -->
-  <link href="{{ asset('import/assets/img/favicon.png')}}" rel="icon">
+  <link href="{{ asset('import/assets/img/logo.png')}}" rel="icon">
   <link href="{{ asset('import/assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
@@ -189,8 +189,8 @@
                         @auth
                         <li><a href="{{ url('/dashboard') }}" >Dashboard</a></li>
                         @else
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        {{-- <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li> --}}
                         <li><a href="{{ route('login') }}" >Log in</a></li>
                         <li><a href="{{ route('code') }}" >Log in with code</a></li>
 
@@ -210,7 +210,7 @@
     <div class="container position-relative" data-aos="zoom-in" data-aos-delay="100">
       <h1>Learning Today,<br>Leading Tomorrow</h1>
       <h2>We are team of talented designers making websites with Bootstrap</h2>
-      <a href="courses.html" class="btn-get-started">Get Started</a>
+      <a href="{{route('register')}}" class="btn-get-started">Get Started</a>
     </div>
   </section><!-- End Hero -->
 
@@ -283,13 +283,13 @@
         <div class="row">
           <div class="col-lg-4 d-flex align-items-stretch">
             <div class="content">
-              <h3>Why Choose Mentor?</h3>
+              <h3>Why Choose Exam App?</h3>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Duis aute irure dolor in reprehenderit
                 Asperiores dolores sed et. Tenetur quia eos. Autem tempore quibusdam vel necessitatibus optio ad corporis.
               </p>
               <div class="text-center">
-                <a href="about.html" class="more-btn">Learn More <i class="bx bx-chevron-right"></i></a>
+                <a href="/" class="more-btn">Learn More <i class="bx bx-chevron-right"></i></a>
               </div>
             </div>
           </div>
@@ -578,7 +578,7 @@
         <div class="row">
 
           <div class="col-lg-3 col-md-6 footer-contact">
-            <h3>Mentor</h3>
+            <h3>EXAM APP</h3>
             <p>
               A108 Adam Street <br>
               New York, NY 535022<br>
@@ -626,22 +626,22 @@
 
       <div class="me-md-auto text-center text-md-start">
         <div class="copyright">
-          &copy; Copyright <strong><span>Mentor</span></strong>. All Rights Reserved
+          &copy; Copyright <strong><span>Exam</span></strong>. All Rights Reserved
         </div>
         <div class="credits">
           <!-- All the links in the footer should remain intact. -->
           <!-- You can delete the links only if you purchased the pro version. -->
           <!-- Licensing information: https://bootstrapmade.com/license/ -->
           <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/ -->
-          Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+          {{-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> --}}
         </div>
       </div>
       <div class="social-links text-center text-md-right pt-3 pt-md-0">
-        <a href="#" class="twitter"><i class="bx bxl-twitter"></i></a>
-        <a href="#" class="facebook"><i class="bx bxl-facebook"></i></a>
-        <a href="#" class="instagram"><i class="bx bxl-instagram"></i></a>
-        <a href="#" class="google-plus"><i class="bx bxl-skype"></i></a>
-        <a href="#" class="linkedin"><i class="bx bxl-linkedin"></i></a>
+        <a href="/" class="twitter"><i class="bx bxl-twitter"></i></a>
+        <a href="/" class="facebook"><i class="bx bxl-facebook"></i></a>
+        <a href="/" class="instagram"><i class="bx bxl-instagram"></i></a>
+        <a href="/" class="google-plus"><i class="bx bxl-skype"></i></a>
+        <a href="/" class="linkedin"><i class="bx bxl-linkedin"></i></a>
       </div>
     </div>
   </footer><!-- End Footer -->
