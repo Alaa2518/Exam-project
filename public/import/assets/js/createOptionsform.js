@@ -48,7 +48,7 @@ function makeOptions(div,number){
                 input.name = "option "+i;
                 input.type = "text";
                 input.required = true;
-                input.placeholder = 'enter input ';
+                input.placeholder = 'Enter Option';
                 input.classList.add('form-control');
                 td1.appendChild(input);
 
@@ -110,7 +110,7 @@ function makeOptions(div,number){
                 let forAt =document.createAttribute('for');
                 input.name = "trueOrFalse";
                 input.type = "radio";
-                input.classList.add('ustom-control-input');
+                input.classList.add('custom-control-input');
                 if (i==1){
                     input.id = "true" ;
                     input.value = 'true';
@@ -129,7 +129,8 @@ function makeOptions(div,number){
                 }
 
                 label.setAttributeNode(forAt);
-                div.appendChild(input);
+                label.classList.add('form-label');
+                label.prepend(input);
                 div.appendChild(label);
 
             }

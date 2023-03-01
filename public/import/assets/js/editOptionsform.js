@@ -106,7 +106,7 @@ let oldDiv = document.getElementById('old_opions_div');
                 let forAt =document.createAttribute('for');
                 input.name = "trueOrFalse";
                 input.type = "radio";
-                input.classList.add('ustom-control-input');
+                input.classList.add('custom-control-input');
                 if (i==1){
                     input.id = "true" ;
                     input.value = 'true';
@@ -120,7 +120,8 @@ let oldDiv = document.getElementById('old_opions_div');
                     label.innerHTML  = "False";
                 }
                 label.setAttributeNode(forAt);
-                div.appendChild(input);
+                label.classList.add('form-label');
+                label.prepend(input);
                 div.appendChild(label);
             }
         }

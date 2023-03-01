@@ -75,20 +75,19 @@
                 </select>
             </div>
                     {{-- add dynamic part to update  --}}
-                    <div class="form-group mt-3" id='old_opions_div'>
+                    <div class="form-group mt-3 " id='old_opions_div'>
                         @if($question->question_type==='trueOrFalse')
                         {{-- chose if true of false --}}
                             @foreach ($question->options as $option)
 
-                                <div class="custom-control custom-radio">
-                                    <input type="radio" class="custom-control-input" type="radio" name="trueOrFalse" value="true" id="true" @if ($option->option === 'true') checked @endif>
-                                    <label class="custom-control-label" for="true">True</label>
-                                </div>
 
-                                <div class="custom-control custom-radio">
-                                    <input class="custom-control-input" type="radio" name="trueOrFalse" value="false" id="false" @if ($option->option === 'false') checked @endif >
-                                    <label class="custom-control-label" for="false">False</label>
-                                </div>
+                                    <label class="form-label" for="true"><input  type="radio"  type="radio" name="trueOrFalse" value="true" id="true" @if ($option->option === 'true') checked @endif>
+                                        True</label>
+
+                                    <label class="form-label" for="false"><input  type="radio" name="trueOrFalse" value="false" id="false" @if ($option->option === 'false') checked @endif >
+                                            False</label>
+
+
 
 
                             @endforeach
