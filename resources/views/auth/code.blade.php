@@ -14,11 +14,9 @@
         <form method="POST" action="{{ route('code') }}">
             @csrf
 
-
-
             <!-- code -->
-            <div class="col-12">
-                <x-label for="code" :value="__('code')" class="form-label" />
+            <div class="col-12 mb-2">
+                <x-label for="code" :value="__('Enter Your Code')" class="form-label" />
                 <x-input id="code" class="form-control"  type="stingh" name="code" :value="old('code')" required autofocus />
                 <div class="invalid-feedback">Please enter your Code.</div>
             </div>

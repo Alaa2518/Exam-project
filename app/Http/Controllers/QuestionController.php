@@ -103,8 +103,8 @@ class QuestionController extends Controller
     {
         //
         $request->validate([
-            'body' => 'required|unique:questions|max:255',
-            'question_type' => 'required|unique:questions|max:255',
+            'body' => 'required|max:255',
+            'question_type' => 'required|max:255',
         ]);
 
         $question = Question::findorFail($id);

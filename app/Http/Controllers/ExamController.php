@@ -128,6 +128,7 @@ class ExamController extends Controller
 
     public function resultExam(Request $request,int $id)
     {
+        // this function don't complate because it show one exam to all users
         $exam = Exam::findorFail(1);
 
         $questions = $exam->questions;
@@ -137,13 +138,13 @@ class ExamController extends Controller
                 if ($request[$option->id] === $option->isTrue)
                         $result++;
             }
-        }
+        } // compute result to user
 
         DB::table('users_exams')->insert([
             'user_id' =>(int)Auth::user()->id,
             'exam_id'=>(int)$id,
-            'result'=>$result
-        ]);
-        return response('your result is '.$result);
+            'result'=>$result,
+        ]);// add result and  user on database
+        return view('user.result',compact('result'));
     }
 }
