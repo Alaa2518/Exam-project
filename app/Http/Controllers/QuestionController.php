@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\QuestionTypeEnum;
+use App\Http\Requests\StoreQuestionRequest;
+use App\Http\Requests\UpdateQuestionRequest;
 use App\Models\Exam;
 use App\Models\Option;
 use App\Models\Question;
-use Carbon\Carbon;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class QuestionController extends Controller
 {
@@ -39,24 +39,20 @@ class QuestionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  StoreQuestionRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreQuestionRequest $request)
     {
-        //
-        $request->validate([
-            'body' => 'required|unique:questions|max:255',
-            'question_type' => 'required|unique:questions|max:255',
-        ]);
+
         Question::Create($request->all());
         $id = Question::all()->last()->id ;
 
-        if ($request->question_type === 'trueOrFalse'){
+        if ($request->question_type === QuestionTypeEnum::TRUE_OR_FALSE){
 
             Option::addTrueOrFales($request, $id);
 
-        } else if ($request->question_type === 'MCQ') {
+        } else if ($request->question_type === QuestionTypeEnum::MCQ) {
             Option::addMCQ($request,$id);
         }
         return redirect()->route('questions');
@@ -95,17 +91,13 @@ class QuestionController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  UpdateQuestionRequest  $request
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(UpdateQuestionRequest $request,$id)
     {
-        //
-        $request->validate([
-            'body' => 'required|max:255',
-            'question_type' => 'required|max:255',
-        ]);
+
 
         $question = Question::findorFail($id);
         $oldQType =$question->question_type;
@@ -117,22 +109,22 @@ class QuestionController extends Controller
             Option::where('question_id','=', $id)->delete();
             // second tacke all new update and add it as an new options on acreate
 
-            if ($request->question_type === 'trueOrFalse') {
+            if ($request->question_type === QuestionTypeEnum::TRUE_OR_FALSE) {
 
                 Option::addTrueOrFales($request, $id);
 
 
-            } else if ($request->question_type === 'MCQ') {
+            } else if ($request->question_type === QuestionTypeEnum::MCQ) {
                 Option::addMCQ($request, $id);
             }
 
         } else {
                 // first ditrmain if type of question true or mcq
-            if ($request->question_type === 'trueOrFalse') {
+            if ($request->question_type === QuestionTypeEnum::TRUE_OR_FALSE) {
 
                 Option::updateTrueOrFales($request, $id);
 
-            } else if ($request->question_type === 'MCQ') {
+            } else if ($request->question_type === QuestionTypeEnum::MCQ) {
                 Option::updateMCQ($request, $id);
 
             }

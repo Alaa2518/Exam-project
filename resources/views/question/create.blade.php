@@ -67,8 +67,8 @@
 
                 <select class="form-control" id="question_type" name="question_type" id="question_type">
                     <option value="">Chose Qusetion</option>
-                    <option value="trueOrFalse">True Or False Question</option>
-                    <option value="MCQ">MCQ</option>
+                    <option value="{{\App\Enums\QuestionTypeEnum::TRUE_OR_FALSE}}">True Or False Question</option>
+                    <option value="{{\App\Enums\QuestionTypeEnum::MCQ}}">MCQ</option>
                 </select>
             </div>
             <div class="form-group mt-3" id="options">

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreExamRequest;
 use App\Models\Exam;
 use Illuminate\Http\Request;
 
@@ -37,15 +38,13 @@ class ExamController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  StoreExamRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreExamRequest $request)
     {
         //
-        $request->validate([
-            'title' => 'required|unique:exams|max:255',
-        ]);
+
         Exam::Create($request->all());
 
 
@@ -91,9 +90,7 @@ class ExamController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $request->validate([
-            'title' => 'required|unique:exams|max:255',
-        ]);
+
         $exam = Exam::findorFail($id);
 
         $exam->update($request->all());

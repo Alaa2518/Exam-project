@@ -69,14 +69,14 @@
             <div class="form-group mt-3">
 
                 <select class="form-control" id="question_type" name="question_type" id="question_type" >
-                        <option value="trueOrFalse" {{ $question->question_type === 'trueOrFalse' ? "selected" : "" }} >True Or False Question</option>
-                        <option value="MCQ"  {{ $question->question_type === 'MCQ' ? "selected" : "" }} >MCQ</option>
+                        <option value="{{\App\Enums\QuestionTypeEnum::TRUE_OR_FALSE}}" {{ $question->question_type === \App\Enums\QuestionTypeEnum::TRUE_OR_FALSE ? "selected" : "" }} >True Or False Question</option>
+                        <option value="{{\App\Enums\QuestionTypeEnum::MCQ}}"  {{ $question->question_type === \App\Enums\QuestionTypeEnum::MCQ ? "selected" : "" }} >MCQ</option>
 
                 </select>
             </div>
                     {{-- add dynamic part to update  --}}
                     <div class="form-group mt-3 " id='old_opions_div'>
-                        @if($question->question_type==='trueOrFalse')
+                        @if($question->question_type=== \App\Enums\QuestionTypeEnum::TRUE_OR_FALSE)
                         {{-- chose if true of false --}}
                             @foreach ($question->options as $option)
 
@@ -86,9 +86,6 @@
 
                                     <label class="form-label" for="false"><input  type="radio" name="trueOrFalse" value="false" id="false" @if ($option->option === 'false') checked @endif >
                                             False</label>
-
-
-
 
                             @endforeach
                         @else
