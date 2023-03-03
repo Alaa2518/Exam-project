@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreQuestionRequest;
 use App\Models\Exam;
 use App\Models\Option;
 use App\Models\Question;
@@ -39,20 +40,16 @@ class QuestionController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  StoreQuestionRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreQuestionRequest $request)
     {
-        //
-        $request->validate([
-            'body' => 'required|unique:questions|max:255',
-            'question_type' => 'required|unique:questions|max:255',
-        ]);
+
         Question::Create($request->all());
         $id = Question::all()->last()->id ;
 
-        if ($request->question_type === 'trueOrFalse'){
+        if ($request->question_type === QuestionTypeEnum::TRUE_OR_FALSE){
 
             Option::addTrueOrFales($request, $id);
 

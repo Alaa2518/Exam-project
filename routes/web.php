@@ -121,7 +121,7 @@ Route::middleware(['auth', 'role:superAdmin'])->group(function () {
     Route::delete('question/delete/{id}', [QuestionController::class, 'destroy']); // delete quetion
 
 
-    Route::get('question/create/{id}', [QuestionController::class, 'create'])->name('addquestion'); // get form to create new questoin
+    Route::get('question/create/{id}', [QuestionController::class, 'create'])->name('addquestion'); // get form to create new question // TODO camel case
     Route::post('question/store', [QuestionController::class, 'store']); // add data to database
 
     Route::get('question/edit/{id}', [QuestionController::class, 'edit']); // get form to updata question data
