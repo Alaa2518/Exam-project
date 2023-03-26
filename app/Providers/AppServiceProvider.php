@@ -14,6 +14,9 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
+        // $this->app->bind('option::class',function(app){
+        //     return new option('sado');
+        // });
     }
 
     /**
