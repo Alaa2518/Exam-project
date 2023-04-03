@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\WayToInsertOptions\WayToInsertOptions;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,9 +15,10 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         //
-        // $this->app->bind('option::class',function(app){
-        //     return new option('sado');
-        // });
+        $this->app->singleton(WayToInsertOptions::class,function(){
+            $request = app(\Illuminate\Http\Request::class);
+            return new WayToInsertOptions($request);
+        });
     }
 
     /**

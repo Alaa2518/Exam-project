@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Enums\QuestionTypeEnum;
+
+use App\Http\WayToInsertOptions\WayToInsertOptions;
 use App\Http\Requests\StoreQuestionRequest;
 use App\Http\Requests\UpdateQuestionRequest;
 use App\Models\Exam;
@@ -42,19 +43,12 @@ class QuestionController extends Controller
      * @param  StoreQuestionRequest $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreQuestionRequest $request)
+    public function store(StoreQuestionRequest $request, WayToInsertOptions $insertOptions)
     {
 
         Question::Create($request->all());
-        $id = Question::all()->last()->id ;
+        $insertOptions->addNewOptions();
 
-        if ($request->question_type === QuestionTypeEnum::TRUE_OR_FALSE){
-
-            Option::addTrueOrFales($request, $id);
-
-        } else if ($request->question_type === QuestionTypeEnum::MCQ) {
-            Option::addMCQ($request,$id);
-        }
         return redirect()->route('questions');
 
     }
@@ -95,7 +89,7 @@ class QuestionController extends Controller
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateQuestionRequest $request,$id)
+    public function update(UpdateQuestionRequest $request,$id, WayToInsertOptions $insertOptions)
     {
 
 
@@ -103,33 +97,9 @@ class QuestionController extends Controller
         $oldQType =$question->question_type;
         $question->update($request->all());
         $newQType = $request->question_type;
-        if ($oldQType !== $newQType){
-
-            // first go to the option and delete all rows of this type
-            Option::where('question_id','=', $id)->delete();
-            // second tacke all new update and add it as an new options on acreate
-
-            if ($request->question_type === QuestionTypeEnum::TRUE_OR_FALSE) {
-
-                Option::addTrueOrFales($request, $id);
+        $insertOptions->updateOptions($oldQType,$newQType,$id);
 
 
-            } else if ($request->question_type === QuestionTypeEnum::MCQ) {
-                Option::addMCQ($request, $id);
-            }
-
-        } else {
-                // first ditrmain if type of question true or mcq
-            if ($request->question_type === QuestionTypeEnum::TRUE_OR_FALSE) {
-
-                Option::updateTrueOrFales($request, $id);
-
-            } else if ($request->question_type === QuestionTypeEnum::MCQ) {
-                Option::updateMCQ($request, $id);
-
-            }
-
-        }
 
         return redirect()->route('questions');
     }
